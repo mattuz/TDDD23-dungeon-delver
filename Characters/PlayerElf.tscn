@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Art/frames/elf_m_idle_anim_f0.png" type="Texture" id=1]
 [ext_resource path="res://Characters/PlayerElf.gd" type="Script" id=2]
@@ -9,6 +9,12 @@
 [ext_resource path="res://Art/frames/elf_m_idle_anim_f2.png" type="Texture" id=7]
 [ext_resource path="res://Art/frames/elf_m_idle_anim_f3.png" type="Texture" id=8]
 [ext_resource path="res://Art/frames/elf_m_idle_anim_f1.png" type="Texture" id=9]
+[ext_resource path="res://Characters/Sprite2.gd" type="Script" id=10]
+[ext_resource path="res://Art/frames/weapon_bow.png" type="Texture" id=11]
+[ext_resource path="res://Characters/staff1.gd" type="Script" id=12]
+[ext_resource path="res://Art/frames/weapon_green_magic_staff.png" type="Texture" id=13]
+[ext_resource path="res://Art/frames/weapon_red_magic_staff.png" type="Texture" id=14]
+[ext_resource path="res://Characters/staff2.gd" type="Script" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5, 9 )
@@ -133,7 +139,26 @@ anims/RESET = SubResource( 2 )
 anims/walk_left = SubResource( 5 )
 anims/walk_right = SubResource( 3 )
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
-
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+
+[node name="bow" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0, 4 )
+scale = Vector2( 0.842634, 0.796991 )
+texture = ExtResource( 11 )
+offset = Vector2( 10, 0 )
+script = ExtResource( 10 )
+
+[node name="staff1" type="Sprite" parent="."]
+visible = false
+scale = Vector2( 0.625, 0.833333 )
+texture = ExtResource( 13 )
+script = ExtResource( 12 )
+
+[node name="staff2" type="Sprite" parent="."]
+visible = false
+scale = Vector2( 0.75, 0.866667 )
+texture = ExtResource( 14 )
+offset = Vector2( 0, 2 )
+script = ExtResource( 15 )
