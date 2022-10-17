@@ -4,7 +4,10 @@ export var move_speed : float = 120
 onready var _animation_player = $AnimationPlayer
 
 func _process(delta):
-	#$bow.visible = true
+	if Input.get_action_strength("eq_bow") == 1: #bara tillfälligt
+		$bow.visible = true
+	if Input.get_action_strength("uneq_bow") == 1:
+		$bow.visible = false
 	pass
 
 func _physics_process(_delta):
