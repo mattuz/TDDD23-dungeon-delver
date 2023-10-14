@@ -2,12 +2,19 @@ extends KinematicBody2D
 
 export var move_speed : float = 120
 onready var _animation_player = $AnimationPlayer
+const arrowPath = preload('res://items/Arrow.tscn')
+var health = 3
+
 
 func _process(delta):
 	if Input.get_action_strength("eq_bow") == 1: #bara tillfälligt
 		$bow.visible = true
 	if Input.get_action_strength("uneq_bow") == 1:
 		$bow.visible = false
+	if Input.is_action_just_pressed("shoot"):
+		shoot()
+		
+	$Node2D.look_at(get_global_mouse_position())
 	pass
 
 func _physics_process(_delta):
@@ -33,3 +40,24 @@ func _physics_process(_delta):
 			$Sprite.flip_h = 0
 	
 	move_and_slide(input_direction*move_speed)
+	
+func shoot():
+	if $bow.visible:
+		var arrow = arrowPath.instance()
+		get_parent().add_child(arrow)
+		arrow.position = $Node2D/Position2D.global_position
+
+		arrow.velocity = get_global_mouse_position() - arrow.position
+		arrow.startTimer()
+
+	
+func take_damage(damage):
+
+	health -= damage
+
+	if health <= 0:
+		die()
+	
+func die():
+	#game over/restart from checkpoint
+	print("game over")
