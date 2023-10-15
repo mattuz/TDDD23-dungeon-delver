@@ -1,49 +1,54 @@
 extends KinematicBody2D
 var health = 3
 var particle_system
-var speed = 30
-var patrol_size = 20
-var starting_pos = position
+var speed = 50
 
+var starting_pos
+var patrol_area
 var patrol_position = Vector2()
 var next_patrol_direction = Vector2()
+var patrol_size = 150
+var half_patrol_size = patrol_size/2
+
 var is_patrolling
+var patrol_wait = false
 
 
 func _ready():
 	$AnimatedSprite.playing = true
 	$AnimatedSprite.play("IDLE")
+	starting_pos = position
+	patrol_area = Rect2(Vector2(position.x-half_patrol_size, position.y-half_patrol_size),
+						Vector2(patrol_size, patrol_size))
 	particle_system = $Particles2D
-	#patrol_position = position + Vector2(rand_range(-patrol_size, patrol_size),
-	#									 rand_range(-patrol_size, patrol_size))
+	patrol_position = get_random_position_in_patrol_area()
 	next_patrol_direction = (patrol_position - position).normalized()
-	print(position)
-	
-	set_patrol_position()
 	is_patrolling = true
+	
 
 func _physics_process(delta):
-	if is_patrolling:
-		#print("is patrolling")
+	if is_patrolling:	
 		patrol()
 	else:
 		pursue_player()
 
 func patrol():
-	if position.distance_to(patrol_position) < 5:
-		set_patrol_position()
+	if position.distance_to(patrol_position) < 2:
+		print("timer started")
+		$PatrolTimer.start()
+		patrol_wait = true
+		patrol_position = get_random_position_in_patrol_area()
 		next_patrol_direction = (patrol_position - position).normalized()
-		print(position)
+		
 
 	var velocity = next_patrol_direction * speed
-	#print(velocity)
-	move_and_slide(velocity)
+	if not patrol_wait:
+		move_and_slide(velocity)
 
-func set_patrol_position():
-	var new_patrol_position = position + Vector2(rand_range(-patrol_size, patrol_size), rand_range(-patrol_size, patrol_size))
-	while new_patrol_position.distance_to(position) > patrol_size:
-		new_patrol_position = position + Vector2(rand_range(-patrol_size, patrol_size), rand_range(-patrol_size, patrol_size))
-	patrol_position = new_patrol_position
+func get_random_position_in_patrol_area():
+	var rand_x = rand_range(patrol_area.position.x, patrol_area.position.x + patrol_area.size.x)
+	var rand_y = rand_range(patrol_area.position.y, patrol_area.position.y + patrol_area.size.y)
+	return Vector2(rand_x, rand_y)
 
 func pursue_player():
 	is_patrolling = false
@@ -72,8 +77,13 @@ func flash():
 func reset_flash():
 	$AnimatedSprite.modulate = Color(1, 1, 1, 1)  # Reset the sprite's color
 	#$Sprite.texture = preload("res://original_texture.png")  # Set the original texture
+	
 func _on_DamageTimer_timeout():
 	reset_flash()  # Reset the sprite to its original appearance
 func _on_DespawnTimer_timeout():
 	queue_free()
+func _on_PatrolTimer_timeout():
+	print("ding")
+	patrol_wait = false
+	
 
