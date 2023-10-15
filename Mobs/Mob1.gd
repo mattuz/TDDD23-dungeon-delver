@@ -1,10 +1,12 @@
 extends RigidBody2D
 
 var health = 1
+var particle_system
 
 func _ready():
 	$AnimatedSprite.playing = true
 	$AnimatedSprite.play("IDLE")
+	particle_system = $Particles2D
 
 func take_damage(damage):
 	$Timer.start()
@@ -15,7 +17,9 @@ func take_damage(damage):
 		die()
 
 func die():
-	#game over/restart from checkpoint
+	$DespawnTimer.start()
+	$AnimatedSprite.hide()
+	particle_system.emitting = true  # Trigger the particle system
 	print("dead")
 	
 func flash():
@@ -27,4 +31,5 @@ func reset_flash():
 	#$Sprite.texture = preload("res://original_texture.png")  # Set the original texture
 func _on_Timer_timeout():
 	reset_flash()  # Reset the sprite to its original appearance
-
+func _on_DespawnTimer_timeout():
+	queue_free()
