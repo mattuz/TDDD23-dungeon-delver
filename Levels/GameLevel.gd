@@ -7,10 +7,11 @@ extends Node2D
 
 
 # Called when the node enters the scene tree for the first time.
+
+
+# Make the script a singleton
 func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	print("GameManager exists")
+	if not Engine.has_singleton("GameManager"):
+		var game_manager = preload("res://Levels/GameManager.gd").instance()
+		Engine.add_singleton("GameManager", game_manager)

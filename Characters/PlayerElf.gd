@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 export var move_speed : float = 120
 onready var _animation_player = $AnimationPlayer
-const arrowPath = preload('res://items/Arrow.tscn')
+const arrowPath = preload('res://items/arrow.tscn')
 var health = 3
 
 
@@ -13,7 +13,7 @@ func _process(delta):
 		$bow.visible = false
 	if Input.is_action_just_pressed("shoot"):
 		shoot()
-		
+	GameManager.set_player_position(position)
 	$Node2D.look_at(get_global_mouse_position())
 	pass
 

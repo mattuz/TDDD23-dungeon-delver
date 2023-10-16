@@ -1,5 +1,6 @@
 extends KinematicBody2D
-var health = 3
+
+var health = 1
 var particle_system
 var speed = 50
 
@@ -15,7 +16,6 @@ var patrol_wait = false
 var detection_range = 100
 var chase_player = false
 
-
 func _ready():
 	$AnimatedSprite.playing = true
 	$AnimatedSprite.play("IDLE")
@@ -26,7 +26,6 @@ func _ready():
 	patrol_position = get_random_position_in_patrol_area()
 	next_patrol_direction = (patrol_position - position).normalized()
 	is_patrolling = true
-	
 
 func _physics_process(delta):
 	if is_patrolling:	
@@ -38,7 +37,7 @@ func _physics_process(delta):
 ###Movement###
 func patrol():
 	if position.distance_to(patrol_position) < 2:
-		print("timer started")
+		print("timer started2")
 		$PatrolTimer.start()
 		patrol_wait = true
 		patrol_position = get_random_position_in_patrol_area()
@@ -48,6 +47,7 @@ func patrol():
 	var velocity = next_patrol_direction * speed
 	if not patrol_wait:
 		move_and_slide(velocity)
+
 
 func get_random_position_in_patrol_area():
 	var rand_x = rand_range(patrol_area.position.x, patrol_area.position.x + patrol_area.size.x)
@@ -68,11 +68,13 @@ func pursue_player():
 	move_and_slide(velocity)
 
 
+
 ###Damage###
 func take_damage(damage):
 	$DamageTimer.start()
 	flash()
 	health -= damage
+
 	if health <= 0:
 		die()
 
@@ -81,23 +83,19 @@ func die():
 	$AnimatedSprite.hide()
 	particle_system.emitting = true  # Trigger the particle system
 	print("dead")
-
+	
 func flash():
 	$AnimatedSprite.modulate = Color(1,1,1,0.5)
 	$AnimatedSprite.modulate = Color(255,255,255)
 
 func reset_flash():
 	$AnimatedSprite.modulate = Color(1, 1, 1, 1)  # Reset the sprite's color
-	#$Sprite.texture = preload("res://original_texture.png")  # Set the original texture	
-##############################################
+	#$Sprite.texture = preload("res://original_texture.png")  # Set the original texture
 
-###Listeners###
+###Timer###
 func _on_DamageTimer_timeout():
 	reset_flash()  # Reset the sprite to its original appearance
 func _on_DespawnTimer_timeout():
 	queue_free()
 func _on_PatrolTimer_timeout():
-	print("ding")
 	patrol_wait = false
-	
-
