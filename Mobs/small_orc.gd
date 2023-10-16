@@ -2,6 +2,7 @@ extends KinematicBody2D
 var health = 3
 var particle_system
 var speed = 50
+var damage_range = 10
 
 var starting_pos
 var patrol_area
@@ -35,7 +36,7 @@ func _physics_process(delta):
 	else:
 		pursue_player()
 
-###Movement###
+################################Movement#####################################
 func patrol():
 	if position.distance_to(patrol_position) < 2:
 		print("timer started")
@@ -66,10 +67,20 @@ func pursue_player():
 	var direction_to_player = (player_position - position).normalized()
 	var velocity = direction_to_player * speed
 	move_and_slide(velocity)
+######################################################
 
+###########################Damage##############################
+func deal_damage():
+	
+	
+	pass
 
-###Damage###
+func can_damage_player():
+	
+	pass
+	
 func take_damage(damage):
+	is_patrolling = false
 	$DamageTimer.start()
 	flash()
 	health -= damage
@@ -91,7 +102,7 @@ func reset_flash():
 	#$Sprite.texture = preload("res://original_texture.png")  # Set the original texture	
 ##############################################
 
-###Listeners###
+##################################Listeners#################################
 func _on_DamageTimer_timeout():
 	reset_flash()  # Reset the sprite to its original appearance
 func _on_DespawnTimer_timeout():

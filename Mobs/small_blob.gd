@@ -71,6 +71,7 @@ func pursue_player():
 
 ###Damage###
 func take_damage(damage):
+	is_patrolling = false
 	$DamageTimer.start()
 	flash()
 	health -= damage
