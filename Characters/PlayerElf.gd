@@ -61,8 +61,8 @@ func shoot():
 	
 func take_damage(damage):
 	health -= damage
-	print(damage)
-	print(health)
+	#print(damage)
+	#print(health)
 	#print("taking damage")
 	$DamageTimer.start()
 	flash()

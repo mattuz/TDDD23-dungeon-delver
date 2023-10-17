@@ -168,7 +168,7 @@ tracks/1/keys = {
 2/z_index = 0
 
 [sub_resource type="CircleShape2D" id=7]
-radius = 11.0
+radius = 13.0
 
 [node name="PlayerElf" type="KinematicBody2D"]
 collision_mask = 4

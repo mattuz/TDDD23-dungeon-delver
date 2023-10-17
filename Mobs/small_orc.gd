@@ -104,7 +104,7 @@ func deal_damage():
 		print("dealing damage orc")
 		$AttackCooldown.start()
 		
-		return 1
+		return 1 #amount of damage
 
 	return 0
 

@@ -77,7 +77,6 @@ wait_time = 2.0
 wait_time = 1.5
 
 [node name="Node2D" type="Node2D" parent="."]
-rotation = -6.28319
 
 [node name="Position2D" type="Position2D" parent="Node2D"]
 position = Vector2( 9, 0 )
