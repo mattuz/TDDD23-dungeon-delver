@@ -3,6 +3,8 @@ extends KinematicBody2D
 var health = 1
 var particle_system
 var speed = 50
+var moving
+var can_attack = true
 
 var starting_pos
 var patrol_area
@@ -26,26 +28,51 @@ func _ready():
 	patrol_position = get_random_position_in_patrol_area()
 	next_patrol_direction = (patrol_position - position).normalized()
 	is_patrolling = true
+	moving = false
 
 func _physics_process(delta):
 	if is_patrolling:	
+		if moving == true:
+			if patrol_position.x > position.x:
+				$AnimatedSprite.play("WALK")
+				$AnimatedSprite.flip_h = 0
+				
+			else:
+				$AnimatedSprite.play("WALK")
+				$AnimatedSprite.flip_h = 1
+			
+		else: 
+			$AnimatedSprite.play("IDLE")
 		is_patrolling = not is_player_in_vicinity()
 		patrol()
 	else:
+		if moving == true:
+			if GameManager.player_position.x > position.x:
+				$AnimatedSprite.play("WALK")
+				$AnimatedSprite.flip_h = 0
+				
+			else:
+				$AnimatedSprite.play("WALK")
+				$AnimatedSprite.flip_h = 1
+			
+		else: 
+			$AnimatedSprite.play("IDLE")
 		pursue_player()
 
 ###Movement###
 func patrol():
 	if position.distance_to(patrol_position) < 2:
-		print("timer started2")
+		moving = false
 		$PatrolTimer.start()
 		patrol_wait = true
 		patrol_position = get_random_position_in_patrol_area()
 		next_patrol_direction = (patrol_position - position).normalized()
-		
 
+		
+	moving = false
 	var velocity = next_patrol_direction * speed
 	if not patrol_wait:
+		moving = true
 		move_and_slide(velocity)
 
 
@@ -56,12 +83,14 @@ func get_random_position_in_patrol_area():
 
 func is_player_in_vicinity():
 	if position.distance_to(GameManager.get_player_position()) <= detection_range:
+		#moving = true
 		return true
 	else:
 		return false
 
 func pursue_player():
 	is_patrolling = false
+	moving = true
 	var player_position = GameManager.get_player_position()
 	var direction_to_player = (player_position - position).normalized()
 	var velocity = direction_to_player * speed
@@ -70,20 +99,30 @@ func pursue_player():
 
 
 ###Damage###
+func deal_damage():
+	if can_attack:
+		can_attack = false
+		print("dealing damage blob")
+		$AttackCooldown.start()
+		
+		return 1
+	
+	return 0
+	
 func take_damage(damage):
 	is_patrolling = false
 	$DamageTimer.start()
 	flash()
 	health -= damage
 
-	if health <= 0:
+	if health == 0:
 		die()
 
 func die():
+	$CollisionShape2D.disabled = true
 	$DespawnTimer.start()
 	$AnimatedSprite.hide()
 	particle_system.emitting = true  # Trigger the particle system
-	print("dead")
 	
 func flash():
 	$AnimatedSprite.modulate = Color(1,1,1,0.5)
@@ -100,3 +139,11 @@ func _on_DespawnTimer_timeout():
 	queue_free()
 func _on_PatrolTimer_timeout():
 	patrol_wait = false
+
+
+func enemy():
+	pass
+
+
+func _on_AttackCooldown_timeout():
+	can_attack = true

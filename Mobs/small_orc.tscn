@@ -72,6 +72,10 @@ wait_time = 0.2
 [node name="PatrolTimer" type="Timer" parent="."]
 wait_time = 2.0
 
+[node name="AttackCooldown" type="Timer" parent="."]
+wait_time = 1.5
+
 [connection signal="timeout" from="DamageTimer" to="." method="_on_DamageTimer_timeout"]
 [connection signal="timeout" from="DespawnTimer" to="." method="_on_DespawnTimer_timeout"]
 [connection signal="timeout" from="PatrolTimer" to="." method="_on_PatrolTimer_timeout"]
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_AttackCooldown_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Art/frames/elf_m_idle_anim_f0.png" type="Texture" id=1]
 [ext_resource path="res://Characters/PlayerElf.gd" type="Script" id=2]
@@ -18,7 +18,7 @@
 [ext_resource path="res://Art/0x72_DungeonTilesetII_v1.4.png" type="Texture" id=16]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 5, 9 )
+extents = Vector2( 5, 5 )
 
 [sub_resource type="Animation" id=4]
 resource_name = "IDLE"
@@ -167,8 +167,11 @@ tracks/1/keys = {
 2/shapes = [  ]
 2/z_index = 0
 
+[sub_resource type="CircleShape2D" id=7]
+radius = 11.0
+
 [node name="PlayerElf" type="KinematicBody2D"]
-collision_layer = 2
+collision_mask = 4
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -176,7 +179,7 @@ texture = ExtResource( 1 )
 region_rect = Rect2( 288, 64, 96, 48 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 4 )
+position = Vector2( 0, 8 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -214,3 +217,18 @@ scale = Vector2( 0.75, 0.866667 )
 texture = ExtResource( 14 )
 offset = Vector2( 0, 2 )
 script = ExtResource( 15 )
+
+[node name="DamageArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+position = Vector2( 0, 4 )
+shape = SubResource( 7 )
+
+[node name="DamageTimer" type="Timer" parent="."]
+wait_time = 0.15
+
+[connection signal="body_entered" from="DamageArea" to="." method="_on_DamageArea_body_entered"]
+[connection signal="body_exited" from="DamageArea" to="." method="_on_DamageArea_body_exited"]
+[connection signal="timeout" from="DamageTimer" to="." method="_on_DamageTimer_timeout"]

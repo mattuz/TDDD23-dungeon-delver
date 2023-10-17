@@ -825,8 +825,6 @@ _data = {
 [node name="PlayerElf" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1, -16 )
 z_index = 1
-collision_layer = 1
-collision_mask = 6
 
 [node name="Node2D" type="Node2D" parent="PlayerElf"]
 position = Vector2( 1, 4 )
