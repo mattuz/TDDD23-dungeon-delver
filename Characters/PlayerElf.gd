@@ -61,9 +61,13 @@ func shoot():
 	
 func take_damage(damage):
 	health -= damage
+	print(damage)
+	print(health)
+	#print("taking damage")
 	$DamageTimer.start()
 	flash()
 	if health <= 0:
+		print("should die")
 		die()
 	
 func flash():
@@ -74,6 +78,7 @@ func reset_flash():
 
 func die():
 	#game over/restart from checkpoint
+	#queue_free()
 	print("game over")
 	
 func enemy_attack():
@@ -83,7 +88,8 @@ func enemy_attack():
 			if damage == 0:
 				pass
 			else:
-				take_damage(enemy.deal_damage())
+				print("dmg is: ", damage)
+				take_damage(damage)
 
 func _on_DamageArea_body_entered(body):
 	if body.has_method("deal_damage"):

@@ -97,12 +97,15 @@ func pursue_player():
 ###########################Damage##############################
 func deal_damage():
 	if can_attack:
+		$Node2D.look_at(GameManager.get_player_position()) #now "targets" player
+		$Node2D/Position2D/Testattack.visible = true
+		$SliceTimer.start()
 		can_attack = false
 		print("dealing damage orc")
 		$AttackCooldown.start()
 		
 		return 1
-	
+
 	return 0
 
 #func can_damage_player():
@@ -146,3 +149,7 @@ func _on_AttackCooldown_timeout():
 	
 func enemy():
 	pass
+
+
+func _on_SliceTimer_timeout():
+	$Node2D/Position2D/Testattack.visible = false

@@ -42,7 +42,7 @@ color = Color( 0.917647, 0.858824, 0.662745, 1 )
 
 [node name="small_blob" type="KinematicBody2D"]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 6
 script = ExtResource( 9 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
