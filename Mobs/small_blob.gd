@@ -123,6 +123,7 @@ func take_damage(damage):
 		die()
 
 func die():
+	$DeathSound.play()
 	$CollisionShape2D.disabled = true
 	$DespawnTimer.start()
 	$AnimatedSprite.hide()

@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/normal_moster_death.wav-bd6d98a1df6d9b1f5611446620b6cbeb.sample"
+
+[deps]
+
+source_file="res://Sounds/my_sounds/normal_moster_death.wav"
+dest_files=[ "res://.import/normal_moster_death.wav-bd6d98a1df6d9b1f5611446620b6cbeb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
