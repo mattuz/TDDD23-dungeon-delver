@@ -17,7 +17,7 @@ func _ready():
 
 
 func _on_StartButton_pressed():
-	get_tree().change_scene("res://Main/GameManager.tscn")
+	get_tree().change_scene("res://Main/Main.tscn")
 
 
 func _on_OptionsButton_pressed():

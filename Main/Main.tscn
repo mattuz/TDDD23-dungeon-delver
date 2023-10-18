@@ -866,7 +866,7 @@ visible = false
 
 [node name="GameMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
-volume_db = -10.0
+volume_db = -18.0
 
 [node name="GameCombatMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
