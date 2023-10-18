@@ -6,11 +6,12 @@ var speed = 50
 var moving
 var can_attack = true
 
+
 var starting_pos
 var patrol_area
 var patrol_position = Vector2()
 var next_patrol_direction = Vector2()
-var patrol_size = 150
+var patrol_size = 120
 var half_patrol_size = patrol_size/2
 
 var is_patrolling
@@ -95,6 +96,7 @@ func pursue_player():
 	var direction_to_player = (player_position - position).normalized()
 	var velocity = direction_to_player * speed
 	move_and_slide(velocity)
+	
 
 
 

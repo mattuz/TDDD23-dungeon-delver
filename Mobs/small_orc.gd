@@ -4,12 +4,13 @@ var particle_system
 var speed = 50
 var can_attack = true
 var moving
+var combat = false
 
 var starting_pos
 var patrol_area
 var patrol_position = Vector2()
 var next_patrol_direction = Vector2()
-var patrol_size = 150
+var patrol_size = 120
 var half_patrol_size = patrol_size/2
 
 var is_patrolling
@@ -88,6 +89,7 @@ func is_player_in_vicinity():
 func pursue_player():
 	moving = true
 	is_patrolling = false
+
 	var player_position = GameManager.get_player_position()
 	var direction_to_player = (player_position - position).normalized()
 	var velocity = direction_to_player * speed
@@ -108,12 +110,6 @@ func deal_damage():
 
 	return 0
 
-#func can_damage_player():
-#	if position.distance_to(GameManager.get_player_position()) <= damage_range:
-#		return true
-#	else:
-#		return false
-	
 func take_damage(damage):
 	is_patrolling = false
 	$DamageTimer.start()

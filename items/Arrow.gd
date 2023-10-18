@@ -27,5 +27,14 @@ func startTimer():
 
 func _on_body_entered(body):
 	if body.has_method("take_damage"):
+		$Area2D/CollisionShape2D.set_deferred("disabled",true)
+		self.visible = false
+		$ArrowHit.play()
 		body.take_damage(damage)
-		queue_free()  # Remove the arrow after hitting the monster
+
+		$QueueTimer.start()
+
+
+
+func _on_QueueTimer_timeout():
+	queue_free()

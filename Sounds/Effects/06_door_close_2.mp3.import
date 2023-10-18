@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/06_door_close_2.mp3-4624c198ff74db8b6db6619e4095530a.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Effects/06_door_close_2.mp3"
+dest_files=[ "res://.import/06_door_close_2.mp3-4624c198ff74db8b6db6619e4095530a.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

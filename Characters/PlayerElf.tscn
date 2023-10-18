@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Art/frames/elf_m_idle_anim_f0.png" type="Texture" id=1]
 [ext_resource path="res://Characters/PlayerElf.gd" type="Script" id=2]
@@ -16,6 +16,8 @@
 [ext_resource path="res://Art/frames/weapon_red_magic_staff.png" type="Texture" id=14]
 [ext_resource path="res://Characters/staff2.gd" type="Script" id=15]
 [ext_resource path="res://Art/0x72_DungeonTilesetII_v1.4.png" type="Texture" id=16]
+[ext_resource path="res://Sounds/my_sounds/ArrowSound.wav" type="AudioStream" id=17]
+[ext_resource path="res://Sounds/my_sounds/damage_taken.wav" type="AudioStream" id=18]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5, 5 )
@@ -228,6 +230,15 @@ shape = SubResource( 7 )
 
 [node name="DamageTimer" type="Timer" parent="."]
 wait_time = 0.15
+
+[node name="ArrowSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 17 )
+volume_db = -13.0
+pitch_scale = 1.7
+
+[node name="DamageTaken" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 18 )
+volume_db = -9.0
 
 [connection signal="body_entered" from="DamageArea" to="." method="_on_DamageArea_body_entered"]
 [connection signal="body_exited" from="DamageArea" to="." method="_on_DamageArea_body_exited"]

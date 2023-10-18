@@ -14,6 +14,9 @@ func _process(delta):
 		$bow.visible = false
 	if Input.is_action_just_pressed("shoot"):
 		shoot()
+	#if Input.is_action_just_pressed("menu"):
+	#	get_tree().change_scene("res://Menus/Menu.tscn")
+		
 	GameManager.set_player_position(position)
 	$Node2D.look_at(get_global_mouse_position())
 	
@@ -54,16 +57,14 @@ func shoot():
 		var arrow = arrowPath.instance()
 		get_parent().add_child(arrow)
 		arrow.position = $Node2D/Position2D.global_position
-
+		$ArrowSound.play()
 		arrow.velocity = get_global_mouse_position() - arrow.position
 		arrow.startTimer()
 
 	
 func take_damage(damage):
 	health -= damage
-	#print(damage)
-	#print(health)
-	#print("taking damage")
+	$DamageTaken.play()
 	$DamageTimer.start()
 	flash()
 	if health <= 0:
