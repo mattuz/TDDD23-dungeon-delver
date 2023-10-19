@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=2]
+[gd_scene load_steps=72 format=2]
 
 [ext_resource path="res://Sounds/Music/Goblins_Den_(Regular).wav" type="AudioStream" id=1]
 [ext_resource path="res://Main/Main.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Levels/Level1.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Menus/PauseMenu.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Sounds/Music/Goblins_Dance_(Battle).wav" type="AudioStream" id=9]
+[ext_resource path="res://Objects/door.tscn" type="PackedScene" id=10]
 
 [sub_resource type="ConvexPolygonShape2D" id=7]
 points = PoolVector2Array( 16, 24, 0, 24, 0, 16, 16, 16 )
@@ -843,20 +844,23 @@ __meta__ = {
 }
 
 [node name="orc_warrior" parent="Level1" instance=ExtResource( 5 )]
-position = Vector2( -88, -144 )
+position = Vector2( -97, -160 )
 
 [node name="small_blob" parent="Level1" instance=ExtResource( 6 )]
-position = Vector2( 80, -144 )
+position = Vector2( 101, -161 )
 
-[node name="PlayerElf" parent="." instance=ExtResource( 4 )]
+[node name="Door" parent="Level1" instance=ExtResource( 10 )]
+position = Vector2( -3, -40 )
+
+[node name="PlayerElf" parent="Level1" instance=ExtResource( 4 )]
 position = Vector2( 1, -16 )
 z_index = 1
 
-[node name="Node2D" type="Node2D" parent="PlayerElf"]
+[node name="Node2D" type="Node2D" parent="Level1/PlayerElf"]
 position = Vector2( 0, 4 )
 rotation = -7.09651
 
-[node name="Position2D" type="Position2D" parent="PlayerElf/Node2D"]
+[node name="Position2D" type="Position2D" parent="Level1/PlayerElf/Node2D"]
 position = Vector2( 8, 0 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
