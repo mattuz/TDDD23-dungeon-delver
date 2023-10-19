@@ -842,6 +842,12 @@ __meta__ = {
 "_editor_description_": ""
 }
 
+[node name="orc_warrior" parent="Level1" instance=ExtResource( 5 )]
+position = Vector2( -88, -144 )
+
+[node name="small_blob" parent="Level1" instance=ExtResource( 6 )]
+position = Vector2( 80, -144 )
+
 [node name="PlayerElf" parent="." instance=ExtResource( 4 )]
 position = Vector2( 1, -16 )
 z_index = 1
@@ -852,12 +858,6 @@ rotation = -7.09651
 
 [node name="Position2D" type="Position2D" parent="PlayerElf/Node2D"]
 position = Vector2( 8, 0 )
-
-[node name="small_orc" parent="." instance=ExtResource( 5 )]
-position = Vector2( -96, -160 )
-
-[node name="small_blob" parent="." instance=ExtResource( 6 )]
-position = Vector2( 72, -128 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
