@@ -1,16 +1,6 @@
-[gd_scene load_steps=73 format=2]
+[gd_resource type="TileSet" load_steps=62 format=2]
 
-[ext_resource path="res://Sounds/Music/Goblins_Den_(Regular).wav" type="AudioStream" id=1]
-[ext_resource path="res://Main/Main.gd" type="Script" id=2]
-[ext_resource path="res://Art/0x72_DungeonTilesetII_v1.4.png" type="Texture" id=3]
-[ext_resource path="res://Characters/PlayerElf.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Mobs/small_orc.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Mobs/small_blob.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Levels/Level1.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Menus/PauseMenu.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Sounds/Music/Goblins_Dance_(Battle).wav" type="AudioStream" id=9]
-[ext_resource path="res://Objects/Door.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Art/TileMap.tres" type="TileSet" id=11]
+[ext_resource path="res://Art/0x72_DungeonTilesetII_v1.4.png" type="Texture" id=1]
 
 [sub_resource type="ConvexPolygonShape2D" id=7]
 points = PoolVector2Array( 16, 24, 0, 24, 0, 16, 16, 16 )
@@ -192,9 +182,9 @@ points = PoolVector2Array( 16, 8, 0, 8, 0, 0, 16, 0 )
 [sub_resource type="ConvexPolygonShape2D" id=46]
 points = PoolVector2Array( 16, 8, 0, 8, 0, 0, 16, 0 )
 
-[sub_resource type="TileSet" id=2]
+[resource]
 0/name = "pillar2"
-0/texture = ExtResource( 3 )
+0/texture = ExtResource( 1 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 96, 80, 16, 48 )
@@ -215,7 +205,7 @@ points = PoolVector2Array( 16, 8, 0, 8, 0, 0, 16, 0 )
 } ]
 0/z_index = 0
 1/name = "pillar1"
-1/texture = ExtResource( 3 )
+1/texture = ExtResource( 1 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 80, 80, 16, 48 )
@@ -236,7 +226,7 @@ points = PoolVector2Array( 16, 8, 0, 8, 0, 0, 16, 0 )
 } ]
 1/z_index = 0
 2/name = "Walls"
-2/texture = ExtResource( 3 )
+2/texture = ExtResource( 1 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
 2/region = Rect2( 16, 0, 48, 64 )
@@ -312,7 +302,7 @@ points = PoolVector2Array( 16, 8, 0, 8, 0, 0, 16, 0 )
 } ]
 2/z_index = 0
 3/name = "Doors"
-3/texture = ExtResource( 3 )
+3/texture = ExtResource( 1 )
 3/tex_offset = Vector2( 0, 0 )
 3/modulate = Color( 1, 1, 1, 1 )
 3/region = Rect2( 16, 208, 96, 48 )
@@ -364,7 +354,7 @@ points = PoolVector2Array( 16, 8, 0, 8, 0, 0, 16, 0 )
 } ]
 3/z_index = 0
 4/name = "Floor"
-4/texture = ExtResource( 3 )
+4/texture = ExtResource( 1 )
 4/tex_offset = Vector2( 0, 0 )
 4/modulate = Color( 1, 1, 1, 1 )
 4/region = Rect2( 16, 64, 48, 48 )
@@ -385,7 +375,7 @@ points = PoolVector2Array( 16, 8, 0, 8, 0, 0, 16, 0 )
 4/shapes = [  ]
 4/z_index = 0
 5/name = "buttons"
-5/texture = ExtResource( 3 )
+5/texture = ExtResource( 1 )
 5/tex_offset = Vector2( 0, 0 )
 5/modulate = Color( 1, 1, 1, 1 )
 5/region = Rect2( 16, 192, 96, 16 )
@@ -406,7 +396,7 @@ points = PoolVector2Array( 16, 8, 0, 8, 0, 0, 16, 0 )
 5/shapes = [  ]
 5/z_index = 0
 6/name = "Chests"
-6/texture = ExtResource( 3 )
+6/texture = ExtResource( 1 )
 6/tex_offset = Vector2( 0, 0 )
 6/modulate = Color( 1, 1, 1, 1 )
 6/region = Rect2( 288, 288, 64, 48 )
@@ -488,7 +478,7 @@ points = PoolVector2Array( 16, 8, 0, 8, 0, 0, 16, 0 )
 } ]
 6/z_index = 0
 7/name = "Potions"
-7/texture = ExtResource( 3 )
+7/texture = ExtResource( 1 )
 7/tex_offset = Vector2( 0, 0 )
 7/modulate = Color( 1, 1, 1, 1 )
 7/region = Rect2( 288, 224, 64, 32 )
@@ -509,7 +499,7 @@ points = PoolVector2Array( 16, 8, 0, 8, 0, 0, 16, 0 )
 7/shapes = [  ]
 7/z_index = 0
 8/name = "Traps"
-8/texture = ExtResource( 3 )
+8/texture = ExtResource( 1 )
 8/tex_offset = Vector2( 0, 0 )
 8/modulate = Color( 1, 1, 1, 1 )
 8/region = Rect2( 16, 176, 64, 16 )
@@ -530,7 +520,7 @@ points = PoolVector2Array( 16, 8, 0, 8, 0, 0, 16, 0 )
 8/shapes = [  ]
 8/z_index = 0
 9/name = "Fountain_walls"
-9/texture = ExtResource( 3 )
+9/texture = ExtResource( 1 )
 9/tex_offset = Vector2( 0, 0 )
 9/modulate = Color( 1, 1, 1, 1 )
 9/region = Rect2( 64, 0, 48, 80 )
@@ -624,7 +614,7 @@ points = PoolVector2Array( 16, 8, 0, 8, 0, 0, 16, 0 )
 } ]
 9/z_index = 0
 10/name = "Slime_wall"
-10/texture = ExtResource( 3 )
+10/texture = ExtResource( 1 )
 10/tex_offset = Vector2( 0, 0 )
 10/modulate = Color( 1, 1, 1, 1 )
 10/region = Rect2( 64, 80, 16, 32 )
@@ -645,7 +635,7 @@ points = PoolVector2Array( 16, 8, 0, 8, 0, 0, 16, 0 )
 } ]
 10/z_index = 0
 11/name = "Stairs"
-11/texture = ExtResource( 3 )
+11/texture = ExtResource( 1 )
 11/tex_offset = Vector2( 0, 0 )
 11/modulate = Color( 1, 1, 1, 1 )
 11/region = Rect2( 80, 176, 16, 16 )
@@ -659,7 +649,7 @@ points = PoolVector2Array( 16, 8, 0, 8, 0, 0, 16, 0 )
 11/shapes = [  ]
 11/z_index = 0
 12/name = "outer_walls"
-12/texture = ExtResource( 3 )
+12/texture = ExtResource( 1 )
 12/tex_offset = Vector2( 0, 0 )
 12/modulate = Color( 1, 1, 1, 1 )
 12/region = Rect2( 0, 112, 96, 64 )
@@ -807,7 +797,7 @@ points = PoolVector2Array( 16, 8, 0, 8, 0, 0, 16, 0 )
 } ]
 12/z_index = 0
 13/name = "Hole"
-13/texture = ExtResource( 3 )
+13/texture = ExtResource( 1 )
 13/tex_offset = Vector2( 0, 0 )
 13/modulate = Color( 1, 1, 1, 1 )
 13/region = Rect2( 96, 144, 16, 16 )
@@ -820,57 +810,3 @@ points = PoolVector2Array( 16, 8, 0, 8, 0, 0, 16, 0 )
 13/shape_one_way_margin = 0.0
 13/shapes = [  ]
 13/z_index = 0
-
-[node name="Main" type="Node2D"]
-script = ExtResource( 2 )
-
-[node name="Level1" parent="." instance=ExtResource( 7 )]
-
-[node name="TileMap" type="TileMap" parent="Level1"]
-tile_set = ExtResource( 11 )
-cell_size = Vector2( 16, 16 )
-format = 1
-tile_data = PoolIntArray( -983050, 12, 2, -983049, 12, 2, -983048, 12, 2, -983047, 12, 2, -983046, 12, 2, -983045, 12, 2, -983044, 12, 2, -983043, 12, 2, -983042, 12, 2, -983041, 12, 2, -1048576, 12, 2, -1048575, 12, 2, -1048574, 12, 2, -1048573, 12, 2, -1048572, 12, 2, -1048571, 12, 2, -1048570, 12, 2, -1048569, 12, 2, -1048568, 12, 2, -1048567, 12, 2, -917515, 12, 65536, -917514, 2, 65536, -917513, 2, 65536, -917512, 2, 65536, -917511, 2, 65536, -917510, 2, 65536, -917509, 2, 65536, -917508, 2, 65536, -917507, 2, 65536, -917506, 2, 65536, -917505, 2, 65536, -983040, 2, 65536, -983039, 2, 65536, -983038, 2, 65536, -983037, 2, 65536, -983036, 2, 65536, -983035, 2, 65536, -983034, 2, 65536, -983033, 2, 65536, -983032, 2, 65536, -983031, 2, 65536, -983030, 12, 65537, -851979, 12, 65536, -851978, 4, 0, -851977, 4, 0, -851976, 4, 0, -851975, 4, 0, -851974, 4, 0, -851973, 4, 0, -851972, 4, 0, -851971, 4, 0, -851970, 4, 0, -851969, 4, 0, -917504, 4, 0, -917503, 4, 0, -917502, 4, 0, -917501, 4, 0, -917500, 4, 0, -917499, 4, 0, -917498, 4, 0, -917497, 4, 0, -917496, 4, 0, -917495, 4, 0, -917494, 12, 65537, -786443, 12, 65536, -786442, 4, 0, -786441, 4, 0, -786440, 4, 0, -786439, 4, 0, -786438, 4, 0, -786437, 4, 0, -786436, 4, 0, -786435, 4, 0, -786434, 4, 0, -786433, 4, 0, -851968, 4, 0, -851967, 4, 0, -851966, 4, 0, -851965, 4, 0, -851964, 4, 0, -851963, 4, 0, -851962, 4, 0, -851961, 4, 0, -851960, 4, 0, -851959, 4, 0, -851958, 12, 65537, -720907, 12, 65536, -720906, 4, 0, -720905, 4, 0, -720904, 4, 0, -720903, 4, 0, -720902, 4, 0, -720901, 4, 0, -720900, 4, 0, -720899, 4, 0, -720898, 4, 0, -720897, 4, 0, -786432, 4, 0, -786431, 4, 0, -786430, 4, 0, -786429, 4, 0, -786428, 4, 0, -786427, 4, 0, -786426, 4, 0, -786425, 4, 0, -786424, 4, 0, -786423, 4, 0, -786422, 12, 65537, -655371, 12, 65536, -655370, 4, 0, -655369, 4, 0, -655368, 4, 0, -655367, 4, 0, -655366, 4, 0, -655365, 4, 0, -655364, 4, 0, -655363, 4, 0, -655362, 4, 0, -655361, 4, 0, -720896, 4, 0, -720895, 4, 0, -720894, 4, 0, -720893, 4, 0, -720892, 4, 0, -720891, 4, 0, -720890, 4, 0, -720889, 4, 0, -720888, 4, 0, -720887, 4, 0, -720886, 12, 65537, -589835, 12, 65536, -589834, 4, 0, -589833, 4, 0, -589832, 4, 0, -589831, 4, 0, -589830, 4, 0, -589829, 4, 0, -589828, 4, 0, -589827, 4, 0, -589826, 4, 0, -589825, 4, 0, -655360, 4, 0, -655359, 4, 0, -655358, 4, 0, -655357, 4, 0, -655356, 4, 0, -655355, 4, 0, -655354, 4, 0, -655353, 4, 0, -655352, 4, 0, -655351, 4, 0, -655350, 12, 65537, -524299, 12, 65536, -524298, 4, 0, -524297, 4, 0, -524296, 4, 0, -524295, 4, 0, -524294, 4, 0, -524293, 4, 0, -524292, 4, 0, -524291, 4, 0, -524290, 4, 0, -524289, 4, 0, -589824, 4, 0, -589823, 4, 0, -589822, 4, 0, -589821, 4, 0, -589820, 4, 0, -589819, 4, 0, -589818, 4, 0, -589817, 4, 0, -589816, 4, 0, -589815, 4, 0, -589814, 12, 65537, -458763, 12, 65536, -458762, 4, 0, -458761, 4, 0, -458760, 4, 0, -458759, 4, 0, -458758, 4, 0, -458757, 4, 0, -458756, 4, 0, -458755, 4, 0, -458754, 4, 0, -458753, 4, 0, -524288, 4, 0, -524287, 4, 0, -524286, 4, 0, -524285, 4, 0, -524284, 4, 0, -524283, 4, 0, -524282, 4, 0, -524281, 4, 0, -524280, 4, 0, -524279, 4, 0, -524278, 12, 65537, -393227, 12, 65536, -393226, 4, 0, -393225, 4, 0, -393224, 4, 0, -393223, 4, 0, -393222, 4, 0, -393221, 4, 0, -393220, 4, 0, -393219, 4, 0, -393218, 4, 0, -393217, 4, 0, -458752, 4, 0, -458751, 4, 0, -458750, 4, 0, -458749, 4, 0, -458748, 4, 0, -458747, 4, 0, -458746, 4, 0, -458745, 4, 0, -458744, 4, 0, -458743, 4, 0, -458742, 12, 65537, -327691, 12, 65536, -327690, 4, 0, -327689, 4, 0, -327688, 4, 0, -327687, 4, 0, -327686, 4, 0, -327685, 4, 0, -327684, 4, 0, -327683, 4, 0, -327682, 4, 0, -327681, 4, 0, -393216, 4, 0, -393215, 4, 0, -393214, 4, 0, -393213, 4, 0, -393212, 4, 0, -393211, 4, 0, -393210, 4, 0, -393209, 4, 0, -393208, 4, 0, -393207, 4, 0, -393206, 12, 65537, -262155, 12, 65536, -262154, 4, 0, -262153, 4, 0, -262152, 4, 0, -262151, 4, 0, -262150, 4, 0, -262149, 4, 0, -262148, 4, 0, -262147, 4, 0, -262146, 4, 0, -262145, 4, 0, -327680, 4, 0, -327679, 4, 0, -327678, 4, 0, -327677, 4, 0, -327676, 4, 0, -327675, 4, 0, -327674, 4, 0, -327673, 4, 0, -327672, 4, 0, -327671, 4, 0, -327670, 12, 65537, -196619, 12, 65536, -196618, 4, 0, -196617, 4, 0, -196616, 4, 0, -196615, 4, 0, -196614, 4, 0, -196613, 4, 0, -196612, 4, 0, -196611, 4, 0, -196610, 4, 0, -196609, 4, 0, -262144, 4, 0, -262143, 4, 0, -262142, 4, 0, -262141, 4, 0, -262140, 4, 0, -262139, 4, 0, -262138, 4, 0, -262137, 4, 0, -262136, 4, 0, -262135, 4, 0, -262134, 12, 65537, -131075, 12, 65539, -131074, 4, 0, -131073, 4, 0, -196608, 4, 0, -196607, 4, 0, -196606, 12, 65538, -65538, 4, 0, -65537, 4, 0, -131072, 4, 0, -131071, 4, 0, -2, 4, 0, -1, 4, 0, -65536, 4, 0, -65535, 4, 0, 65534, 4, 0, 65535, 4, 0, 0, 4, 0, 1, 4, 0, 131070, 4, 0, 131071, 4, 0, 65536, 4, 0, 65537, 4, 0, 196606, 4, 0, 196607, 4, 0, 131072, 4, 0, 131073, 4, 0, 262142, 4, 0, 262143, 4, 0, 196608, 4, 0, 196609, 4, 0, 327678, 4, 0, 327679, 4, 0, 262144, 4, 0, 262145, 4, 0, 393214, 4, 0, 393215, 4, 0, 327680, 4, 0, 327681, 4, 0, 458750, 4, 0, 458751, 4, 0, 393216, 4, 0, 393217, 4, 0, 524286, 4, 0, 524287, 4, 0, 458752, 4, 0, 458753, 4, 0, 589822, 4, 0, 589823, 4, 0, 524288, 4, 0, 524289, 4, 0, 655358, 4, 0, 655359, 4, 0, 589824, 4, 0, 589825, 4, 0, 720894, 4, 0, 720895, 4, 0, 655360, 4, 0, 655361, 4, 0, 786430, 4, 0, 786431, 4, 0, 720896, 4, 0, 720897, 4, 0, 851966, 4, 0, 851967, 4, 0, 786432, 4, 0, 786433, 4, 0, 917502, 4, 0, 917503, 4, 0, 851968, 4, 0, 851969, 4, 0, 983038, 4, 0, 983039, 4, 0, 917504, 4, 0, 917505, 4, 0, 1048574, 4, 0, 1048575, 4, 0, 983040, 4, 0, 983041, 4, 0, 1114110, 4, 0, 1114111, 4, 0, 1048576, 4, 0, 1048577, 4, 0 )
-
-[node name="TileMap2" type="TileMap" parent="Level1"]
-tile_set = SubResource( 2 )
-cell_size = Vector2( 16, 16 )
-collision_layer = 4
-navigation_layers = 2
-format = 1
-tile_data = PoolIntArray( -983051, 12, 0, -1048566, 12, 1, -196618, 12, 3, -196617, 12, 3, -196616, 12, 3, -196615, 12, 3, -196614, 12, 3, -196613, 12, 3, -196612, 12, 3, -196611, 12, 3, -262142, 12, 3, -262141, 12, 3, -262140, 12, 3, -262139, 12, 3, -262138, 12, 3, -262137, 12, 3, -262136, 12, 3, -262135, 12, 3, -65539, 12, 65536, -131070, 12, 65537, -3, 12, 65536, -65534, 12, 65537, 65533, 12, 65536, 2, 12, 65537, 131069, 12, 65536, 65538, 12, 65537, 196605, 12, 65536, 131074, 12, 65537, 262141, 12, 65536, 196610, 12, 65537, 327677, 12, 65536, 262146, 12, 65537, 1179646, 4, 0, 1114113, 4, 0 )
-__meta__ = {
-"_editor_description_": ""
-}
-
-[node name="orc_warrior" parent="Level1" instance=ExtResource( 5 )]
-position = Vector2( -97, -160 )
-
-[node name="small_blob" parent="Level1" instance=ExtResource( 6 )]
-position = Vector2( 101, -161 )
-
-[node name="PlayerElf" parent="Level1" instance=ExtResource( 4 )]
-position = Vector2( 0, 24 )
-z_index = 1
-
-[node name="Node2D" type="Node2D" parent="Level1/PlayerElf"]
-position = Vector2( 0, 4 )
-rotation = -7.09651
-
-[node name="Position2D" type="Position2D" parent="Level1/PlayerElf/Node2D"]
-position = Vector2( 8, 0 )
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource( 8 )]
-visible = false
-
-[node name="GameMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 1 )
-volume_db = -18.0
-
-[node name="GameCombatMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 9 )
-volume_db = -10.0
-
-[node name="Door" parent="." instance=ExtResource( 10 )]
