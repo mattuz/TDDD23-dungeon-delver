@@ -42,7 +42,8 @@ linear_accel = 51.49
 radial_accel = 91.09
 color = Color( 0.0235294, 0.258824, 0.0196078, 1 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=4]
+radius = 2.0
 
 [node name="orc_warrior" type="KinematicBody2D"]
 collision_layer = 2
@@ -94,13 +95,13 @@ texture = ExtResource( 10 )
 [node name="SliceTimer" type="Timer" parent="."]
 wait_time = 0.2
 
-[node name="Area2D" type="Area2D" parent="."]
-modulate = Color( 0.0235294, 0.258824, 0.0196078, 1 )
+[node name="CollisionArea" type="Area2D" parent="."]
 z_index = 5
 collision_layer = 0
-collision_mask = 0
+collision_mask = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionArea"]
+position = Vector2( 1, 2 )
 scale = Vector2( 6, 6 )
 z_index = 4
 shape = SubResource( 4 )
@@ -116,3 +117,5 @@ attenuation = 3.0
 [connection signal="timeout" from="PatrolTimer" to="." method="_on_PatrolTimer_timeout"]
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_AttackCooldown_timeout"]
 [connection signal="timeout" from="SliceTimer" to="." method="_on_SliceTimer_timeout"]
+[connection signal="body_entered" from="CollisionArea" to="." method="_on_CollisionArea_body_entered"]
+[connection signal="body_exited" from="CollisionArea" to="." method="_on_CollisionArea_body_exited"]

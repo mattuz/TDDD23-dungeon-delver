@@ -15,6 +15,7 @@ func _process(_delta):
 			press()
 
 func press():
+	$PressedTimer.start()
 	pressed = true
 	$ButtonArea/NotPressed.hide()
 	$ButtonArea/Pressed.show()
@@ -32,3 +33,9 @@ func _on_ButtonArea_body_entered(body):
 func _on_ButtonArea_body_exited(body):
 	if body.has_method("player"):
 		can_press = false
+
+
+func _on_PressedTimer_timeout():
+	pressed = false
+	$ButtonArea/Pressed.hide()
+	$ButtonArea/NotPressed.show()

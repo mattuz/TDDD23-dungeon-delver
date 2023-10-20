@@ -203,6 +203,7 @@ tile_data = PoolIntArray( -524304, 0, 0, -524303, 0, 0, -524302, 0, 0, -589811, 
 visible = false
 position = Vector2( 0, 4 )
 scale = Vector2( 0.842634, 0.796991 )
+z_index = 1
 texture = ExtResource( 11 )
 offset = Vector2( 10, 0 )
 script = ExtResource( 10 )

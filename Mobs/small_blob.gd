@@ -156,3 +156,17 @@ func _on_AttackCooldown_timeout():
 
 func _on_SliceTimer_timeout():
 	$Node2D/Position2D/Testattack.visible = false
+
+
+func _on_CollisionArea_body_entered(body):
+	if is_patrolling:
+		if body.has_method("environment") or body.has_method("enemy") and body != self:
+			moving = false
+			$PatrolTimer.start()
+			patrol_wait = true
+			patrol_position = starting_pos
+			next_patrol_direction = (patrol_position - position).normalized()
+			patrol()
+
+func _on_CollisionArea_body_exited(body):
+	pass # Replace with function body.
