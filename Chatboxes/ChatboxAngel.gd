@@ -4,6 +4,7 @@ var label
 
 func _ready():
 	label = $Label
+
 	hide()
 
 func show_message(message):
