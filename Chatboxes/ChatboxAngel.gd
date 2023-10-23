@@ -3,7 +3,7 @@ extends Control
 var label
 
 func _ready():
-	label = $Label
+	label = $Node2D/Panel/Label
 
 	hide()
 
