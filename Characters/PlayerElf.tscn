@@ -312,7 +312,11 @@ position = Vector2( 0, 4 )
 [node name="Position2D" type="Position2D" parent="Node2D"]
 position = Vector2( 8, 0 )
 
+[node name="Cooldown" type="Timer" parent="."]
+wait_time = 0.5
+
 [connection signal="body_entered" from="DamageArea" to="." method="_on_DamageArea_body_entered"]
 [connection signal="body_exited" from="DamageArea" to="." method="_on_DamageArea_body_exited"]
 [connection signal="timeout" from="DamageTimer" to="." method="_on_DamageTimer_timeout"]
 [connection signal="timeout" from="ImmuneTimer" to="." method="_on_ImmuneTimer_timeout"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_Cooldown_timeout"]

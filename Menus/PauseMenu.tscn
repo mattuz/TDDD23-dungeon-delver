@@ -48,21 +48,22 @@ margin_bottom = 104.0
 text = "Continue"
 
 [node name="OptionsButton" type="Button" parent="Panel/VBoxContainer"]
+visible = false
 margin_top = 108.0
 margin_right = 192.0
 margin_bottom = 131.0
 text = "Options"
 
 [node name="MainMenuButton" type="Button" parent="Panel/VBoxContainer"]
-margin_top = 135.0
+margin_top = 108.0
 margin_right = 192.0
-margin_bottom = 158.0
+margin_bottom = 131.0
 text = "Return to Main Menu"
 
 [node name="ExitGameButton" type="Button" parent="Panel/VBoxContainer"]
-margin_top = 162.0
+margin_top = 135.0
 margin_right = 192.0
-margin_bottom = 185.0
+margin_bottom = 158.0
 text = "Exit Game"
 
 [connection signal="pressed" from="Panel/VBoxContainer/ContinueButton" to="." method="_on_ContinueButton_pressed"]

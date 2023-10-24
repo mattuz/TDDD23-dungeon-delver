@@ -6,6 +6,7 @@ const arrowPath = preload('res://items/Arrow.tscn')
 var health = 6
 var enemies = []
 var immune = false
+var cooldown = false
 
 
 func _ready():
@@ -57,7 +58,9 @@ func _physics_process(_delta):
 	move_and_slide(input_direction*move_speed)
 	
 func shoot():
-	if $bow.visible:
+	if $bow.visible and not cooldown:
+		cooldown = true
+		$Cooldown.start()
 		var arrow = arrowPath.instance()
 		get_parent().add_child(arrow)
 		arrow.position = $Node2D/Position2D.global_position
@@ -135,3 +138,7 @@ func _on_DamageTimer_timeout():
 
 func _on_ImmuneTimer_timeout():
 	immune = false
+
+
+func _on_Cooldown_timeout():
+	cooldown = false
