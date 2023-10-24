@@ -13,6 +13,8 @@ func _ready():
 	display_hp(health)
 
 func _process(delta):
+	#display_hp(health)
+	#print(health)
 	if Input.get_action_strength("eq_bow") == 1: #bara tillfälligt
 		$bow.visible = true
 	if Input.get_action_strength("uneq_bow") == 1:
@@ -104,7 +106,12 @@ func enemy_attack():
 				take_damage(damage)
 
 func display_hp(hp):
-	#$Camera2D/Health.visible = false
+	$Camera2D/Health/HP6.visible = false
+	$Camera2D/Health/HP5.visible = false
+	$Camera2D/Health/HP4.visible = false
+	$Camera2D/Health/HP3.visible = false
+	$Camera2D/Health/HP2.visible = false
+	$Camera2D/Health/HP1.visible = false
 	match hp:
 		6:
 			$Camera2D/Health/HP6.visible = true
