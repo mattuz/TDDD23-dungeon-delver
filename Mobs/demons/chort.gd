@@ -5,6 +5,7 @@ var speed = 50
 var can_attack = true
 var moving
 var combat = false
+var afk = true
 
 var starting_pos
 var patrol_area
@@ -33,32 +34,33 @@ func _ready():
 	
 
 func _physics_process(delta):
-	if is_patrolling:	
-		if moving == true:
-			if patrol_position.x > position.x:
-				$AnimatedSprite.play("WALK")
-				$AnimatedSprite.flip_h = 0
-				
-			else:
-				$AnimatedSprite.play("WALK")
-				$AnimatedSprite.flip_h = 1
-		else: 
-			$AnimatedSprite.play("IDLE")
-		is_patrolling = not is_player_in_vicinity()
-		patrol()
-	else:
-		if moving == true:
-			if GameManager.player_position.x > position.x:
-				$AnimatedSprite.play("WALK")
-				$AnimatedSprite.flip_h = 0
-				
-			else:
-				$AnimatedSprite.play("WALK")
-				$AnimatedSprite.flip_h = 1
-		else: 
-			$AnimatedSprite.play("IDLE")
-		pursue_player()
-	#deal_damage()
+	if not afk:
+		if is_patrolling:	
+			if moving == true:
+				if patrol_position.x > position.x:
+					$AnimatedSprite.play("WALK")
+					$AnimatedSprite.flip_h = 0
+					
+				else:
+					$AnimatedSprite.play("WALK")
+					$AnimatedSprite.flip_h = 1
+			else: 
+				$AnimatedSprite.play("IDLE")
+			is_patrolling = not is_player_in_vicinity()
+			patrol()
+		else:
+			if moving == true:
+				if GameManager.player_position.x > position.x:
+					$AnimatedSprite.play("WALK")
+					$AnimatedSprite.flip_h = 0
+					
+				else:
+					$AnimatedSprite.play("WALK")
+					$AnimatedSprite.flip_h = 1
+			else: 
+				$AnimatedSprite.play("IDLE")
+			pursue_player()
+
 
 ################################Movement#####################################
 func patrol():
@@ -107,7 +109,7 @@ func deal_damage():
 		$Node2D/Position2D/Testattack.visible = true
 		$SliceTimer.start()
 		can_attack = false
-		print("dealing damage orc")
+		print("dealing damage chort")
 		$AttackCooldown.start()
 		
 		return 1 #amount of damage
@@ -168,3 +170,9 @@ func _on_CollisionArea_body_entered(body):
 
 func _on_CollisionArea_body_exited(body):
 	pass # Replace with function body.
+
+
+func _on_VisibilityNotifier2D_screen_entered():
+	afk = false
+
+

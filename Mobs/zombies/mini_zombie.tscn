@@ -8,7 +8,7 @@
 [ext_resource path="res://Art/frames/tiny_zombie_run_anim_f0.png" type="Texture" id=6]
 [ext_resource path="res://Art/frames/tiny_zombie_run_anim_f3.png" type="Texture" id=7]
 [ext_resource path="res://Art/frames/tiny_zombie_run_anim_f2.png" type="Texture" id=8]
-[ext_resource path="res://Mobs/small_blob.gd" type="Script" id=9]
+[ext_resource path="res://Mobs/zombies/mini_zombie.gd" type="Script" id=9]
 [ext_resource path="res://Art/testattack.png" type="Texture" id=10]
 [ext_resource path="res://Sounds/my_sounds/normal_moster_death.wav" type="AudioStream" id=11]
 
@@ -45,7 +45,7 @@ color = Color( 0.917647, 0.858824, 0.662745, 1 )
 [sub_resource type="CircleShape2D" id=4]
 radius = 7.0
 
-[node name="small_blob" type="KinematicBody2D"]
+[node name="mini_zombie" type="KinematicBody2D"]
 collision_layer = 2
 collision_mask = 6
 script = ExtResource( 9 )
@@ -112,6 +112,8 @@ attenuation = 3.0
 position = Vector2( 0.5, 4 )
 shape = SubResource( 4 )
 
+[node name="VisibilityNotifier2D2" type="VisibilityNotifier2D" parent="."]
+
 [connection signal="timeout" from="DamageTimer" to="." method="_on_DamageTimer_timeout"]
 [connection signal="timeout" from="DespawnTimer" to="." method="_on_DespawnTimer_timeout"]
 [connection signal="timeout" from="PatrolTimer" to="." method="_on_PatrolTimer_timeout"]
@@ -119,3 +121,5 @@ shape = SubResource( 4 )
 [connection signal="timeout" from="SliceTimer" to="." method="_on_SliceTimer_timeout"]
 [connection signal="body_entered" from="CollisionArea" to="." method="_on_CollisionArea_body_entered"]
 [connection signal="body_exited" from="CollisionArea" to="." method="_on_CollisionArea_body_exited"]
+[connection signal="screen_entered" from="VisibilityNotifier2D2" to="." method="_on_VisibilityNotifier2D2_screen_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D2" to="." method="_on_VisibilityNotifier2D2_screen_exited"]
