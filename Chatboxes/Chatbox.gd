@@ -18,4 +18,4 @@ func hide_message():
 func _input(event):
 	if event.is_action_pressed("interact"):
 		print("test")
-		hide_message()
+		#hide_message()

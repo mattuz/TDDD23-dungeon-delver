@@ -8,11 +8,12 @@ func _ready():
 	close_door()
 
 func _process(_delta):
-	if Input.is_action_just_pressed("interact") and can_open: 
-		if is_open: 
-			close_door()
-		else:
-			open_door()
+	pass
+	#if Input.is_action_just_pressed("interact") and can_open: 
+	#	if is_open: 
+	#		close_door()
+	#	else:
+	#		open_door()
 
 func open_door():
 	is_open = true

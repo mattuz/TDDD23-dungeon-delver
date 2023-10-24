@@ -9,7 +9,7 @@
 [ext_resource path="res://Art/frames2/0x72_DungeonTilesetII_v1.6/frames/angel_run_anim_f0.png" type="Texture" id=7]
 [ext_resource path="res://Art/frames2/0x72_DungeonTilesetII_v1.6/frames/angel_idle_anim_f1.png" type="Texture" id=8]
 [ext_resource path="res://Characters/Angel.gd" type="Script" id=9]
-[ext_resource path="res://Chatboxes/ChatboxAngel.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Chatboxes/Chatbox.tscn" type="PackedScene" id=10]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {

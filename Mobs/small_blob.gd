@@ -16,7 +16,7 @@ var half_patrol_size = patrol_size/2
 
 var is_patrolling
 var patrol_wait = false
-var detection_range = 100
+var detection_range = 160
 var chase_player = false
 
 func _ready():

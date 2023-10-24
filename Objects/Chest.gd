@@ -2,8 +2,14 @@ extends StaticBody2D
 
 var is_open = false
 var can_open = false
+var angel 
+
 
 func _ready():
+	angel = $Angel2
+	angel.current_message = angel.current_message + 1
+	$Angel2/Chatbox.show_message(angel.chat_messages[angel.current_message])
+
 	# Set the initial state of the door (closed).
 	close()
 

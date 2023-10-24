@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Chatboxes/my_theme.theme" type="Theme" id=1]
+
+[node name="bow_instruction" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+theme = ExtResource( 1 )
+
+[node name="bow_eq" type="Label" parent="."]
+margin_right = 144.0
+margin_bottom = 37.0
+text = "Use MB1 to shoot.
+
+
+
+
+
+
+
+Press \"1\" to equip your bow."
+autowrap = true
