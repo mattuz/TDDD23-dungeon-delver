@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 var health = 1
+var starting_health
 var particle_system
 var speed = 70
 var moving
@@ -22,7 +23,7 @@ var detection_range = 160
 var chase_player = false
 
 func _ready():
-	
+	starting_health = health
 	$AnimatedSprite.playing = true
 	$AnimatedSprite.play("IDLE")
 	particle_system = $Particles2D
@@ -33,6 +34,13 @@ func _ready():
 	next_patrol_direction = (patrol_position - position).normalized()
 	is_patrolling = true
 	moving = false
+
+func reset():
+	position = starting_pos
+	is_patrolling = true
+	moving = false
+	chase_player = false
+	health = starting_health
 
 func _physics_process(delta):
 	if not afk:
@@ -88,7 +96,6 @@ func get_random_position_in_patrol_area():
 
 func is_player_in_vicinity():
 	if position.distance_to(GameManager.get_player_position()) <= detection_range:
-		#moving = true
 		return true
 	else:
 		return false
@@ -123,7 +130,7 @@ func take_damage(damage):
 	flash()
 	health -= damage
 
-	if health == 0:
+	if health <= 0:
 		die()
 
 func die():

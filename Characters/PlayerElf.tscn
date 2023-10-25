@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Art/frames/elf_m_idle_anim_f0.png" type="Texture" id=1]
 [ext_resource path="res://Characters/PlayerElf.gd" type="Script" id=2]
@@ -20,6 +20,8 @@
 [ext_resource path="res://Sounds/my_sounds/damage_taken.wav" type="AudioStream" id=18]
 [ext_resource path="res://Art/frames/ui_heart_full.png" type="Texture" id=19]
 [ext_resource path="res://Art/frames/ui_heart_half.png" type="Texture" id=20]
+[ext_resource path="res://Sounds/my_sounds/death.wav" type="AudioStream" id=21]
+[ext_resource path="res://Art/frames/elf_m_hit_anim_f0.png" type="Texture" id=22]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5, 5 )
@@ -67,6 +69,82 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("dashSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("dashSprite:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("dashSprite:texture")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 22 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "dash"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("dashSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 22 ), ExtResource( 22 ), ExtResource( 22 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("dashSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("dashSprite:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -130,6 +208,8 @@ tracks/1/keys = {
 [sub_resource type="CircleShape2D" id=7]
 radius = 13.0
 
+[sub_resource type="RectangleShape2D" id=8]
+
 [node name="PlayerElf" type="KinematicBody2D"]
 collision_mask = 4
 script = ExtResource( 2 )
@@ -145,6 +225,7 @@ shape = SubResource( 1 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/IDLE = SubResource( 4 )
 anims/RESET = SubResource( 2 )
+anims/dash = SubResource( 9 )
 anims/walk_left = SubResource( 5 )
 anims/walk_right = SubResource( 3 )
 
@@ -300,11 +381,12 @@ volume_db = -13.0
 pitch_scale = 1.7
 
 [node name="DamageTaken" type="AudioStreamPlayer" parent="."]
+pause_mode = 1
 stream = ExtResource( 18 )
 volume_db = -9.0
 
 [node name="ImmuneTimer" type="Timer" parent="."]
-wait_time = 1.5
+wait_time = 0.5
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2( 0, 4 )
@@ -315,8 +397,37 @@ position = Vector2( 8, 0 )
 [node name="Cooldown" type="Timer" parent="."]
 wait_time = 0.75
 
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+pause_mode = 2
+stream = ExtResource( 21 )
+
+[node name="ResetArea" type="Area2D" parent="."]
+visible = false
+scale = Vector2( 25, 15 )
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ResetArea"]
+shape = SubResource( 8 )
+
+[node name="dashSprite" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 22 )
+
+[node name="DashTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="DashCooldown" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
 [connection signal="body_entered" from="DamageArea" to="." method="_on_DamageArea_body_entered"]
 [connection signal="body_exited" from="DamageArea" to="." method="_on_DamageArea_body_exited"]
 [connection signal="timeout" from="DamageTimer" to="." method="_on_DamageTimer_timeout"]
 [connection signal="timeout" from="ImmuneTimer" to="." method="_on_ImmuneTimer_timeout"]
 [connection signal="timeout" from="Cooldown" to="." method="_on_Cooldown_timeout"]
+[connection signal="body_entered" from="ResetArea" to="." method="_on_ResetArea_body_entered"]
+[connection signal="body_exited" from="ResetArea" to="." method="_on_ResetArea_body_exited"]
+[connection signal="timeout" from="DashTimer" to="." method="_on_DashTimer_timeout"]
+[connection signal="timeout" from="DashCooldown" to="." method="_on_DashCooldown_timeout"]

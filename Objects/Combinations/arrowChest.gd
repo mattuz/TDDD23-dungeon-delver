@@ -3,7 +3,7 @@ extends StaticBody2D
 var is_open = false
 var can_open = false
 var angel 
-const potPath = preload('res://Objects/hp_pot.tscn')
+const potPath = preload('res://Objects/arrow_power.tscn')
 var item_out = false
 
 
@@ -27,7 +27,7 @@ func open():
 		print("pop it out!!")
 		item_out = true
 		$Sprite.visible = true
-		$Sprite.texture = preload('res://.import/flask_big_red.png-38942dbec523119240ea44d26f93aaf7.stex')
+		$Sprite.texture = preload('res://.import/weapon_arrow.png-e2e19d6bd64e2213d991e211f264a149.stex')
 		$AnimationPlayer.play("popout")
 		$ItemTimer.start()
 	is_open = true

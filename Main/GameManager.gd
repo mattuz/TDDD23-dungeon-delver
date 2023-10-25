@@ -1,17 +1,36 @@
 extends Node2D
 
 var player_position = Vector2()
+var checkpoint_position = Vector2()
+var player_dead = false
 var in_combat = []
+var player 
 
 
+func set_player(player_c):
+	player = player_c
 
-# Function to set the player's position
 func set_player_position(position):
 	player_position = position
 
-# Function to get the player's position
 func get_player_position():
 	return player_position
+
+func set_player_dead(dead):
+	player_dead = dead
+
+func get_player_dead():
+	return player_dead
+
+func set_player_checkpoint(pos):
+	checkpoint_position = pos
+	
+func get_player_checkpoint():
+	return checkpoint_position
+	
+func respawn(player):
+	
+	pass
 
 func add_to_combat(monster):
 	print("Added ", monster, " to combat")

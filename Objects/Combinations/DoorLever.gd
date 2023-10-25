@@ -13,8 +13,9 @@ func _ready():
 
 
 func _process(delta):
-	if $Lever.switched:
+	if $Lever.switched and not $Door.is_open:
 		$Door.open_door()
 	else:
-		$Door.close_door()
+		pass
+		#$Door.close_door()
 	pass

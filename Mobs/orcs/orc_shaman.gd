@@ -1,5 +1,6 @@
 extends KinematicBody2D
-var health = 3
+var health = 4
+var starting_health
 var particle_system
 var speed = 10
 var can_attack = false
@@ -24,6 +25,7 @@ var chase_player = false
 
 
 func _ready():
+	starting_health = health
 	$AnimatedSprite.playing = true
 	$AnimatedSprite.play("IDLE")
 	particle_system = $Particles2D
@@ -35,6 +37,13 @@ func _ready():
 	is_patrolling = true
 	moving = false
 	$AttackCooldown.start()
+	
+func reset():
+	position = starting_pos
+	is_patrolling = true
+	moving = false
+	chase_player = false
+	health = starting_health
 	
 
 func _physics_process(delta):
@@ -129,7 +138,7 @@ func take_damage(damage):
 	$DamageTimer.start()
 	flash()
 	health -= damage
-	if health == 0:
+	if health <= 0:
 		die()
 
 func die():

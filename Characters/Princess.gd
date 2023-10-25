@@ -3,7 +3,7 @@ extends KinematicBody2D
 var speed = 200
 
 var chat_messages = [
-	"Trapped!!",
+	"Adventurer! praise the almighty that you've arrived. Please find a way to get me out of here!",
 	"",
 	""
 ]

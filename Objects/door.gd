@@ -17,7 +17,9 @@ func _process(_delta):
 
 func open_door():
 	is_open = true
+	print("opened")
 	$CollisionClosed.disabled = true
+	$doorOpen.play()
 	$DoorArea/Closed.hide()
 	$DoorArea/Opened.show()
 

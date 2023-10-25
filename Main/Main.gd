@@ -14,7 +14,10 @@ func _process(_delta):
 		$GameCombatMusic.playing = false
 		if $GameMusic.playing == false:
 			$GameMusic.play()
-	pass
+	if GameManager.get_player_dead():
+		var current_value = get_tree().paused
+		get_tree().paused = !current_value
+		$CanvasLayer/respawn_menu.show()
 
 func _input(event):
 	if event.is_action_pressed("pause_menu"):
