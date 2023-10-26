@@ -25,6 +25,7 @@ func _process(_delta):
 func open():
 	if not item_out:
 		print("pop it out!!")
+		$Label.show()
 		item_out = true
 		$Sprite.visible = true
 		$Sprite.texture = preload('res://.import/weapon_arrow.png-e2e19d6bd64e2213d991e211f264a149.stex')

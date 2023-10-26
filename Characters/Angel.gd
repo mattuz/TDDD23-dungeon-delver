@@ -31,6 +31,6 @@ func _process(delta):
 
 
 
-func interact():
+func show_message():
 	chatbox.show_message(chat_messages[current_message])
-	current_message = (current_message + 1) % chat_messages.size()
+	#current_message = (current_message + 1) % chat_messages.size()

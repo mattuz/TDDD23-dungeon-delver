@@ -34,7 +34,7 @@ func _on_body_entered(body):
 		body.take_damage(damage)
 
 		$QueueTimer.start()
-	elif body.has_method("environment"):
+	elif body.has_method("environment") or body.has_method("open_door") or body.has_method("open"):
 		queue_free()
 
 

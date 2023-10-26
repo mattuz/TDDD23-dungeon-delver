@@ -5,6 +5,7 @@ var checkpoint_position = Vector2()
 var player_dead = false
 var in_combat = []
 var player 
+var game_won = false
 
 
 func set_player(player_c):

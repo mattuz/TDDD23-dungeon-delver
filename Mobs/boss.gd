@@ -1,15 +1,25 @@
 extends KinematicBody2D
-var health = 80
+var health = 100
 var starting_health
 var particle_system
-var speed = 7
+var speed = 50
 var can_attack = true
+var can_shoot = true
 var moving
 var combat = false
 var afk = true
+var spawn1 = false
+var spawn2 = false
+var spawn3 = false
+
+
 const fireballPath = preload('res://items/Fireball.tscn')
-var swivel = true
-var swivel2 = false
+const shamanPath = preload('res://Mobs/orcs/orc_shaman.tscn')
+const chortPath = preload('res://Mobs/demons/chort.tscn')
+
+var can_charge = true
+var charging = false
+var charge_up = false
 
 var starting_pos
 var patrol_area
@@ -24,10 +34,12 @@ var detection_range = 200
 var shooting_range_x = 240
 var shooting_range_y = 140
 var chase_player = false
+var charge_pos = Vector2()
 
 
 func _ready():
 	starting_health = health
+	$HPbar/Control/ProgressBar.value = health
 	$AnimatedSprite.playing = true
 	$AnimatedSprite.play("IDLE")
 	particle_system = $Particles2D
@@ -75,7 +87,37 @@ func _physics_process(delta):
 			else: 
 				$AnimatedSprite.play("IDLE")
 			shoot()
-			pursue_player()
+			charge()
+			if not charge_up:
+				moving = true
+				pursue_player()
+			if health <= 75:
+				$ChargeCooldown.wait_time = 3
+				$FireballCooldown.wait_time = 1.5
+				if not spawn1:
+					$hp75.play()
+					spawn_chorts(1)
+					spawn_shamans(1)
+					spawn1 = true
+					pass
+			if health <= 50:
+				$FireballCooldown.wait_time = 1
+				if not spawn2:
+					$hp50.play()
+					spawn2 = true
+					#spawn_chorts(1)
+					spawn_shamans(4)
+					pass
+			if health <= 25:
+				$ChargeCooldown.wait_time = 1.5
+				$FireballCooldown.wait_time = .3
+				if not spawn3:
+					$hp25.play()
+					spawn3 = true
+					spawn_chorts(1)
+					spawn_shamans(1)
+					pass
+				
 
 
 ################################Movement#####################################
@@ -104,6 +146,7 @@ func get_random_position_in_patrol_area():
 
 func is_player_in_vicinity():
 	if position.distance_to(GameManager.get_player_position()) <= detection_range:
+		GameManager.in_combat = true
 		return true
 	else:
 		return false
@@ -121,36 +164,80 @@ func pursue_player():
 
 ###########################Damage##############################
 func shoot():
-	if can_attack:
+	if can_shoot:
 		var distance_x = abs(GameManager.get_player_position().x - position.x)
 		var distance_y =  abs(GameManager.get_player_position().y - position.y)
 		$Node2D.look_at(GameManager.get_player_position())
-		#print(distance_x)
 		if distance_x <= shooting_range_x and distance_y <= shooting_range_y:
 			$FireballSound.play()
-			can_attack = false
-			$AttackCooldown.start()
+			can_shoot = false
+			$FireballCooldown.start()
 			var fireball = fireballPath.instance()
 			get_parent().add_child(fireball)
 			fireball.position = $Node2D/Position2D.global_position
 			fireball.velocity = GameManager.get_player_position() - fireball.position
 
+func deal_damage():
+	if can_attack:
+		$Node2D.look_at(GameManager.get_player_position()) #now "targets" player
+		$Node2D/Position2D/Testattack.visible = true
+		$SliceTimer.start()
+		can_attack = false
+		$AttackCooldown.start()
+		
+		return 1 #amount of damage
 
+	return 0
+
+func charge():
+	$AnimatedSprite.playing = true
+	if can_charge:
+		charge_pos = GameManager.get_player_position()
+		can_charge = false
+		charge_up = true
+
+	elif charge_up:
+		$AnimatedSprite.play("CHARGE_POWER")
+		if not health <= 50:
+			can_shoot = false
+		if $PowerUpTimer.time_left>0:
+			if GameManager.player_position.x > position.x:
+				$AnimatedSprite.play("CHARGE_POWER")
+				$AnimatedSprite.flip_h = 0
+			else:
+				$AnimatedSprite.play("CHARGE_POWER")
+				$AnimatedSprite.flip_h = 1
+		else:
+			$PowerUpTimer.start()
+	
+	elif charging:
+		var charge_speed = 250
+		var direction_to_player = (charge_pos - position).normalized()
+		moving = true
+		if position.distance_to(charge_pos) < 2:
+			can_shoot = true
+			charging = false
+			moving = false
+		else:
+			move_and_slide(direction_to_player*charge_speed)
 
 func take_damage(damage):
 	is_patrolling = false
 	$DamageTimer.start()
 	flash()
 	health -= damage
+	$HPbar/Control/ProgressBar.value = health
 	if health <= 0:
 		die()
 
 func die():
+	GameManager.in_combat = false
 	$DeathSound.play()
 	get_node("CollisionShape2D").disabled = true
 	$DespawnTimer.start()
 	$AnimatedSprite.hide()
 	particle_system.emitting = true  # Trigger the particle system
+	$winSound.play()
 
 func flash():
 	$AnimatedSprite.modulate = Color(1,1,1,0.5)
@@ -160,6 +247,38 @@ func reset_flash():
 	$AnimatedSprite.modulate = Color(1, 1, 1, 1)  # Reset the sprite's color
 	#$Sprite.texture = preload("res://original_texture.png")  # Set the original texture	
 ##############################################
+
+func spawn_chorts(amount):
+	for i in range(amount):
+		var chort = chortPath.instance()
+		get_parent().add_child(chort)
+		if i == 0:
+			chort.position = Vector2(global_position.x +20, global_position.y+40)
+		elif i == 1:
+			chort.position = Vector2(global_position.x -20, global_position.y-40)
+		elif i == 2:
+			chort.position = Vector2(global_position.x -20, global_position.y+40)
+		else:
+			chort.position = Vector2(global_position.x +20, global_position.y-40)
+		
+
+
+func spawn_shamans(amount):
+	for i in range(amount):
+		var shaman = shamanPath.instance()
+		get_parent().add_child(shaman)
+		if i == 0:
+			shaman.position = Vector2(global_position.x +40, global_position.y+40)
+		elif i == 1:
+			shaman.position = Vector2(global_position.x -40, global_position.y-40)
+		elif i == 2:
+			shaman.position = Vector2(global_position.x -40, global_position.y+40)
+		else:
+			shaman.position = Vector2(global_position.x +40, global_position.y-40)
+			
+		
+		
+
 
 ##################################Listeners#################################
 func _on_DamageTimer_timeout():
@@ -197,14 +316,37 @@ func _on_VisibilityNotifier2D_screen_entered():
 	afk = false
 	
 func _on_ChargeCooldown_timeout():
-	print("can_charge reset")
-	#can_charge = true
-	pass
+	can_charge = true
+
 
 func _on_ChargingTimer_timeout():
-	print("charging reset")
-	#charging = false
-	pass
+	charging = false
+
 
 func boss():
 	pass
+
+
+func _on_DoorArea_body_entered(body):
+	if body.has_method("open_door"):
+		#print("door door")
+		pass
+	pass # Replace with function body.
+
+
+func _on_DoorArea_body_exited(body):
+	if body.has_method("open_door"):
+		body.open_door()
+	pass # Replace with function body.
+
+
+func _on_PowerUpTimer_timeout():
+	charge_pos = GameManager.get_player_position()
+	charge_up = false
+	$ChargeCooldown.start()
+	$ChargingTimer.start()
+	charging = true
+
+
+func _on_FireballCooldown_timeout():
+	can_shoot = true

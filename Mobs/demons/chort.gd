@@ -6,6 +6,7 @@ var speed = 50
 var can_attack = true
 var can_charge = true
 var charging = false
+var charge_up = false
 var moving
 var combat = false
 var afk = true
@@ -99,7 +100,6 @@ func get_random_position_in_patrol_area():
 func is_player_in_vicinity():
 	if position.distance_to(GameManager.get_player_position()) <= detection_range:
 		charge_pos = GameManager.get_player_position()
-		print(charge_pos)
 		return true
 	else:
 		return false
@@ -125,7 +125,6 @@ func deal_damage():
 		$Node2D/Position2D/Testattack.visible = true
 		$SliceTimer.start()
 		can_attack = false
-		print("dealing damage chort")
 		$AttackCooldown.start()
 		
 		return 1 #amount of damage
@@ -133,15 +132,25 @@ func deal_damage():
 	return 0
 	
 func charge():
+	$AnimatedSprite.playing = true
 	if can_charge:
 		charge_pos = GameManager.get_player_position()
-		charging = true
 		can_charge = false
-		$ChargeCooldown.start()
-		$ChargingTimer.start()
+		charge_up = true
+
+	elif charge_up:
+		if $PowerUpTimer.time_left>0:
+			if GameManager.player_position.x > position.x:
+				$AnimatedSprite.play("CHARGE_POWER")
+				$AnimatedSprite.flip_h = 0
+			else:
+				$AnimatedSprite.play("CHARGE_POWER")
+				$AnimatedSprite.flip_h = 1
+		else:
+			$PowerUpTimer.start()
 	
-	if charging:
-		var charge_speed = 200
+	elif charging:
+		var charge_speed = 250
 		var direction_to_player = (charge_pos - position).normalized()
 		moving = true
 		if position.distance_to(charge_pos) < 2:
@@ -210,10 +219,16 @@ func _on_VisibilityNotifier2D_screen_entered():
 
 
 func _on_ChargeCooldown_timeout():
-	print("can_charge reset")
 	can_charge = true
 
 
 func _on_ChargingTimer_timeout():
-	print("charging reset")
 	charging = false
+
+
+func _on_PowerUpTimer_timeout():
+	charge_pos = GameManager.get_player_position()
+	charge_up = false
+	$ChargeCooldown.start()
+	$ChargingTimer.start()
+	charging = true

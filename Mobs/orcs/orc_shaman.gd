@@ -3,7 +3,7 @@ var health = 4
 var starting_health
 var particle_system
 var speed = 7
-var can_attack = true
+var can_attack = false
 var moving
 var combat = false
 var afk = true
@@ -38,6 +38,7 @@ func _ready():
 	next_patrol_direction = (patrol_position - position).normalized()
 	is_patrolling = true
 	moving = false
+	$AttackCooldown.start()
 
 	
 func reset():

@@ -18,6 +18,14 @@ func _process(_delta):
 		var current_value = get_tree().paused
 		get_tree().paused = !current_value
 		$CanvasLayer/respawn_menu.show()
+	if GameManager.game_won:
+		$GameWin.play()
+		var current_value = get_tree().paused
+		get_tree().paused = !current_value
+		$CanvasLayer/winMenu.show()
+		
+		
+		
 
 func _input(event):
 	if event.is_action_pressed("pause_menu"):

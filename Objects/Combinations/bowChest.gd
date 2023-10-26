@@ -24,6 +24,7 @@ func _process(_delta):
 
 func open():
 	if not item_out:
+		$Label.show()
 		print("pop it out!!")
 		item_out = true
 		$Sprite.visible = true

@@ -82,11 +82,9 @@ func take_damage(damage):
 		display_hp(health)
 		$DamageTaken.play()
 		$DamageTimer.start()
-		print("sound?")
 		flash()
 		if health <= 0:
 			$DamageTaken.stop()
-			print("should die")
 			die()
 	
 func flash():
@@ -106,9 +104,6 @@ func die():
 	display_hp(health)
 	$DeathSound.play()
 	$DamageTaken.volume_db=-100
-	#game over/restart from checkpoint
-	#queue_free()
-	print("game over")
 	
 func enemy_attack():
 	if enemies: #if enemies close not empty
@@ -117,7 +112,6 @@ func enemy_attack():
 			if damage == 0:
 				pass
 			else:
-				#print("dmg is: ", damage)
 				$DamageTaken.volume_db=-9
 				take_damage(damage)
 
@@ -176,8 +170,7 @@ func _on_Cooldown_timeout():
 	cooldown = false
 
 func _on_ResetArea_body_entered(body):
-	if body.has_method("deal_damage"):
-		print("appending to enemy_reset")
+	if body.has_method("enemy"):
 		enemies_reset.append(body)
 
 func _on_ResetArea_body_exited(body):
