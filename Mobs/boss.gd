@@ -58,6 +58,7 @@ func reset():
 	moving = false
 	chase_player = false
 	health = starting_health
+	$HPbar/Control/ProgressBar.value = health
 	
 
 func _physics_process(delta):

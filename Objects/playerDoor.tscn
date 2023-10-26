@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Objects/playerDoor.gd" type="Script" id=1]
 [ext_resource path="res://Art/TileMap.tres" type="TileSet" id=2]
@@ -17,6 +17,9 @@ b = Vector2( 0, 32 )
 
 [sub_resource type="SegmentShape2D" id=4]
 a = Vector2( 0, -22 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 30.5, 10 )
 
 [node name="playerDoor" type="StaticBody2D"]
 collision_layer = 4
@@ -58,5 +61,12 @@ pitch_scale = 1.9
 max_distance = 5000.0
 attenuation = 3.73213
 
+[node name="openArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="openArea"]
+position = Vector2( 0, 224 )
+shape = SubResource( 6 )
+
 [connection signal="body_entered" from="DoorArea" to="." method="_on_DoorArea_body_entered"]
 [connection signal="body_exited" from="DoorArea" to="." method="_on_DoorArea_body_exited"]
+[connection signal="body_exited" from="openArea" to="." method="_on_openArea_body_exited"]

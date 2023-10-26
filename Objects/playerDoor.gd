@@ -15,13 +15,15 @@ func _process(_delta):
 		if can_close: 
 			can_close = false
 			close_door()
+		if can_open:
+			can_open = false
+			open_door()
 
 
 func open_door():
 	is_open = true
 	$CollisionClosed.disabled = true
 	$doorOpen.volume_db = 0
-	$doorOpen.play()
 	$DoorArea/Closed.hide()
 	$DoorArea/Opened.show()
 
@@ -39,8 +41,18 @@ func _on_DoorArea_body_entered(body):
 
 func _on_DoorArea_body_exited(body):
 	if body.has_method("boss"):
+		$doorOpen.play()
 		open_door()
 		pass
 	if body.has_method("player"):
 		#close_door()
 		pass
+
+
+func _on_openArea_body_exited(body):
+	if body.has_method("player"):
+		#open_door()
+		can_open = true
+		is_open = true
+		can_close = false
+		has_closed = false

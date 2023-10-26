@@ -20,6 +20,7 @@ func _process(_delta):
 func open_door():
 	is_open = true
 	$CollisionClosed.disabled = true
+	$winSound.play()
 	$doorOpen.play()
 	$DoorArea/Closed.hide()
 	$DoorArea/Opened.show()
