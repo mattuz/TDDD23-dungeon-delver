@@ -115,8 +115,8 @@ func _physics_process(delta):
 				if not spawn3:
 					$hp25.play()
 					spawn3 = true
-					spawn_chorts(1)
-					spawn_shamans(1)
+					spawn_chorts(2)
+					spawn_shamans(4)
 					pass
 				
 

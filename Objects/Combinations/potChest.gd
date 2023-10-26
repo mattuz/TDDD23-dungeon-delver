@@ -24,7 +24,7 @@ func _process(_delta):
 
 func open():
 	if not item_out:
-		print("pop it out!!")
+		$chestOpen.play()
 		item_out = true
 		$Sprite.visible = true
 		$Sprite.texture = preload('res://.import/flask_big_red.png-38942dbec523119240ea44d26f93aaf7.stex')
@@ -51,7 +51,6 @@ func _on_ChestArea_body_exited(body):
 
 
 func _on_ItemTimer_timeout():
-	print("timeout!!")
 	$Sprite.visible = false
 	var pot = potPath.instance()
 	get_parent().add_child(pot)

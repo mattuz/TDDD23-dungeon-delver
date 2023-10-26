@@ -24,7 +24,7 @@ func _process(_delta):
 
 func open():
 	if not item_out:
-		print("pop it out!!")
+		$chestOpen.play()
 		$Label.show()
 		item_out = true
 		$Sprite.visible = true
@@ -52,7 +52,6 @@ func _on_ChestArea_body_exited(body):
 
 
 func _on_ItemTimer_timeout():
-	print("timeout!!")
 	$Sprite.visible = false
 	var pot = potPath.instance()
 	get_parent().add_child(pot)
