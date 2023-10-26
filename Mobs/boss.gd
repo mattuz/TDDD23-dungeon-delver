@@ -59,6 +59,11 @@ func reset():
 	chase_player = false
 	health = starting_health
 	$HPbar/Control/ProgressBar.value = health
+	spawn1 = false
+	spawn2 = false
+	spawn3 = false
+	$ChargeCooldown.wait_time = 5
+	$FireballCooldown.wait_time = 2
 	
 
 func _physics_process(delta):

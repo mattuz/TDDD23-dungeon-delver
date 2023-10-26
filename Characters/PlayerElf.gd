@@ -64,7 +64,7 @@ func shoot():
 		cooldown = true
 		$Cooldown.start()
 		var arrow = arrowPath.instance()
-		arrow.damage = arrow_damage
+		arrow.damage = arrow_damage*25
 		get_parent().add_child(arrow)
 		arrow.position = $Node2D/Position2D.global_position
 		$ArrowSound.play()

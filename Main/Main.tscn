@@ -957,7 +957,7 @@ position = Vector2( 2206, 560 )
 position = Vector2( 2312, 528 )
 
 [node name="checkpoint11" parent="Room1" instance=ExtResource( 22 )]
-position = Vector2( 2784, -1182 )
+position = Vector2( 2784, -1178 )
 
 [node name="Angel" parent="Room1" instance=ExtResource( 16 )]
 position = Vector2( 48, 68 )

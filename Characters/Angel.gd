@@ -3,7 +3,7 @@ extends KinematicBody2D
 var speed = 200
 
 var chat_messages = [
-	"Adventurer, the princess needs your help! She's trapped deep within the dungeon. Go after her!",
+	"Adventurer, the princess needs your help! She's trapped deep within the dungeon. Go rescue her!",
 	"Chests can contain useful things such as health potions, or effects that enhance your bow!",
 	"Quickly, this way!"
 ]
