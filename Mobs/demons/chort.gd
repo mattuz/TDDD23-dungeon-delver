@@ -1,9 +1,11 @@
 extends KinematicBody2D
-var health = 3
+var health = 5
 var starting_health
 var particle_system
 var speed = 50
 var can_attack = true
+var can_charge = true
+var charging = false
 var moving
 var combat = false
 var afk = true
@@ -19,6 +21,7 @@ var is_patrolling
 var patrol_wait = false
 var detection_range = 160
 var chase_player = false
+var charge_pos = Vector2()
 
 
 func _ready():
@@ -68,7 +71,9 @@ func _physics_process(delta):
 					$AnimatedSprite.flip_h = 1
 			else: 
 				$AnimatedSprite.play("IDLE")
-			pursue_player()
+				
+			charge()
+			#pursue_player()
 
 
 ################################Movement#####################################
@@ -82,12 +87,8 @@ func patrol():
 		
 	moving = false
 	var velocity = next_patrol_direction * speed
-	
-	
-	
 	if not patrol_wait:
 		moving = true
-	#	move_and_slide(next_patrol_direction * speed)
 		move_and_slide(velocity)
 
 func get_random_position_in_patrol_area():
@@ -97,6 +98,8 @@ func get_random_position_in_patrol_area():
 
 func is_player_in_vicinity():
 	if position.distance_to(GameManager.get_player_position()) <= detection_range:
+		charge_pos = GameManager.get_player_position()
+		print(charge_pos)
 		return true
 	else:
 		return false
@@ -104,11 +107,15 @@ func is_player_in_vicinity():
 func pursue_player():
 	moving = true
 	is_patrolling = false
-
-	var player_position = GameManager.get_player_position()
-	var direction_to_player = (player_position - position).normalized()
-	var velocity = direction_to_player * speed
-	move_and_slide(velocity)
+	#var player_position = GameManager.get_player_position()
+	#var direction_to_player = (player_position - position).normalized()
+	#var velocity = direction_to_player * speed
+	if not can_attack:
+		#move_and_slide(-(direction_to_player)*(speed/4))
+		pass
+	else:
+		#move_and_slide(velocity)
+		move_and_slide((charge_pos-position).normalized()*speed)
 ######################################################
 
 ###########################Damage##############################
@@ -124,6 +131,23 @@ func deal_damage():
 		return 1 #amount of damage
 
 	return 0
+	
+func charge():
+	if can_charge:
+		charge_pos = GameManager.get_player_position()
+		charging = true
+		can_charge = false
+		$ChargeCooldown.start()
+		$ChargingTimer.start()
+	
+	if charging:
+		var charge_speed = 200
+		var direction_to_player = (charge_pos - position).normalized()
+		moving = true
+		if position.distance_to(charge_pos) < 2:
+			moving = false
+		else:
+			move_and_slide(direction_to_player*charge_speed)
 
 func take_damage(damage):
 	is_patrolling = false
@@ -185,3 +209,11 @@ func _on_VisibilityNotifier2D_screen_entered():
 	afk = false
 
 
+func _on_ChargeCooldown_timeout():
+	print("can_charge reset")
+	can_charge = true
+
+
+func _on_ChargingTimer_timeout():
+	print("charging reset")
+	charging = false

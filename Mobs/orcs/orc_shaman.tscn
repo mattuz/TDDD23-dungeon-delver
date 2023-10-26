@@ -79,6 +79,7 @@ wait_time = 2.0
 
 [node name="AttackCooldown" type="Timer" parent="."]
 wait_time = 2.0
+one_shot = true
 
 [node name="SliceTimer" type="Timer" parent="."]
 wait_time = 0.2

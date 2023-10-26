@@ -37,3 +37,5 @@ func _on_DoorArea_body_entered(body):
 func _on_DoorArea_body_exited(body):
 	if body.has_method("player"):
 		can_open = false
+	if body.has_method("boss"):
+		open_door()

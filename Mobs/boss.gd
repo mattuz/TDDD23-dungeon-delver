@@ -1,14 +1,15 @@
 extends KinematicBody2D
-
-var health = 1
+var health = 80
 var starting_health
 var particle_system
-var speed = 70
-var moving
+var speed = 7
 var can_attack = true
+var moving
+var combat = false
 var afk = true
-var afk_range = 300
-
+const fireballPath = preload('res://items/Fireball.tscn')
+var swivel = true
+var swivel2 = false
 
 var starting_pos
 var patrol_area
@@ -19,8 +20,11 @@ var half_patrol_size = patrol_size/2
 
 var is_patrolling
 var patrol_wait = false
-var detection_range = 160
+var detection_range = 200
+var shooting_range_x = 240
+var shooting_range_y = 140
 var chase_player = false
+
 
 func _ready():
 	starting_health = health
@@ -35,12 +39,14 @@ func _ready():
 	is_patrolling = true
 	moving = false
 
+	
 func reset():
 	position = starting_pos
 	is_patrolling = true
 	moving = false
 	chase_player = false
 	health = starting_health
+	
 
 func _physics_process(delta):
 	if not afk:
@@ -53,7 +59,6 @@ func _physics_process(delta):
 				else:
 					$AnimatedSprite.play("WALK")
 					$AnimatedSprite.flip_h = 1
-				
 			else: 
 				$AnimatedSprite.play("IDLE")
 			is_patrolling = not is_player_in_vicinity()
@@ -67,12 +72,13 @@ func _physics_process(delta):
 				else:
 					$AnimatedSprite.play("WALK")
 					$AnimatedSprite.flip_h = 1
-				
 			else: 
 				$AnimatedSprite.play("IDLE")
+			shoot()
 			pursue_player()
 
-###Movement###
+
+################################Movement#####################################
 func patrol():
 	if position.distance_to(patrol_position) < 2:
 		moving = false
@@ -80,14 +86,16 @@ func patrol():
 		patrol_wait = true
 		patrol_position = get_random_position_in_patrol_area()
 		next_patrol_direction = (patrol_position - position).normalized()
-
 		
 	moving = false
 	var velocity = next_patrol_direction * speed
+	
+	
+	
 	if not patrol_wait:
 		moving = true
+	#	move_and_slide(next_patrol_direction * speed)
 		move_and_slide(velocity)
-
 
 func get_random_position_in_patrol_area():
 	var rand_x = rand_range(patrol_area.position.x, patrol_area.position.x + patrol_area.size.x)
@@ -101,71 +109,70 @@ func is_player_in_vicinity():
 		return false
 
 func pursue_player():
-	is_patrolling = false
 	moving = true
+	is_patrolling = false
+
 	var player_position = GameManager.get_player_position()
 	var direction_to_player = (player_position - position).normalized()
 	var velocity = direction_to_player * speed
-	if not can_attack:
-		move_and_slide(-(direction_to_player)*(speed/4))
-	else:
-		move_and_slide(velocity)
-	
 
+	move_and_slide(velocity)
+######################################################
 
-
-###Damage###
-func deal_damage():
+###########################Damage##############################
+func shoot():
 	if can_attack:
-		$Node2D.look_at(GameManager.get_player_position()) #now "targets" player
-		$Node2D/Position2D/Testattack.visible = true
-		$SliceTimer.start()
-		can_attack = false
-		print("dealing damage blob")
-		$AttackCooldown.start()
-		return 1
-	
-	return 0
-	
+		var distance_x = abs(GameManager.get_player_position().x - position.x)
+		var distance_y =  abs(GameManager.get_player_position().y - position.y)
+		$Node2D.look_at(GameManager.get_player_position())
+		#print(distance_x)
+		if distance_x <= shooting_range_x and distance_y <= shooting_range_y:
+			$FireballSound.play()
+			can_attack = false
+			$AttackCooldown.start()
+			var fireball = fireballPath.instance()
+			get_parent().add_child(fireball)
+			fireball.position = $Node2D/Position2D.global_position
+			fireball.velocity = GameManager.get_player_position() - fireball.position
+
+
+
 func take_damage(damage):
 	is_patrolling = false
 	$DamageTimer.start()
 	flash()
 	health -= damage
-
 	if health <= 0:
 		die()
 
 func die():
 	$DeathSound.play()
-	$CollisionShape2D.disabled = true
+	get_node("CollisionShape2D").disabled = true
 	$DespawnTimer.start()
 	$AnimatedSprite.hide()
 	particle_system.emitting = true  # Trigger the particle system
-	
+
 func flash():
 	$AnimatedSprite.modulate = Color(1,1,1,0.5)
 	$AnimatedSprite.modulate = Color(255,255,255)
 
 func reset_flash():
 	$AnimatedSprite.modulate = Color(1, 1, 1, 1)  # Reset the sprite's color
-	#$Sprite.texture = preload("res://original_texture.png")  # Set the original texture
+	#$Sprite.texture = preload("res://original_texture.png")  # Set the original texture	
+##############################################
 
-###Timer###
+##################################Listeners#################################
 func _on_DamageTimer_timeout():
 	reset_flash()  # Reset the sprite to its original appearance
 func _on_DespawnTimer_timeout():
 	queue_free()
 func _on_PatrolTimer_timeout():
 	patrol_wait = false
-
-
-func enemy():
-	pass
-
-
 func _on_AttackCooldown_timeout():
 	can_attack = true
+	
+func enemy():
+	pass
 
 
 func _on_SliceTimer_timeout():
@@ -186,11 +193,18 @@ func _on_CollisionArea_body_exited(body):
 	pass # Replace with function body.
 
 
-func _on_VisibilityNotifier2D2_screen_entered():
+func _on_VisibilityNotifier2D_screen_entered():
 	afk = false
-	print("Not afk anymore")
+	
+func _on_ChargeCooldown_timeout():
+	print("can_charge reset")
+	#can_charge = true
+	pass
 
+func _on_ChargingTimer_timeout():
+	print("charging reset")
+	#charging = false
+	pass
 
-func _on_VisibilityNotifier2D2_screen_exited():
-	#get_tree().paused = true
+func boss():
 	pass

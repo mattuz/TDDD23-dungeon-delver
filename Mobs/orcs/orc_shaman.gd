@@ -2,12 +2,14 @@ extends KinematicBody2D
 var health = 4
 var starting_health
 var particle_system
-var speed = 10
-var can_attack = false
+var speed = 7
+var can_attack = true
 var moving
 var combat = false
 var afk = true
 const fireballPath = preload('res://items/Fireball.tscn')
+var swivel = true
+var swivel2 = false
 
 var starting_pos
 var patrol_area
@@ -36,7 +38,7 @@ func _ready():
 	next_patrol_direction = (patrol_position - position).normalized()
 	is_patrolling = true
 	moving = false
-	$AttackCooldown.start()
+
 	
 func reset():
 	position = starting_pos
@@ -48,8 +50,6 @@ func reset():
 
 func _physics_process(delta):
 	if not afk:
-		shoot()
-		pursue_player()
 		if is_patrolling:	
 			if moving == true:
 				if patrol_position.x > position.x:
@@ -74,6 +74,7 @@ func _physics_process(delta):
 					$AnimatedSprite.flip_h = 1
 			else: 
 				$AnimatedSprite.play("IDLE")
+			shoot()
 			pursue_player()
 
 
@@ -114,15 +115,16 @@ func pursue_player():
 	var player_position = GameManager.get_player_position()
 	var direction_to_player = (player_position - position).normalized()
 	var velocity = direction_to_player * speed
+
 	move_and_slide(velocity)
 ######################################################
 
 ###########################Damage##############################
 func shoot():
 	if can_attack:
-		#print(position.distance_to(GameManager.get_player_position()))
 		var distance_x = abs(GameManager.get_player_position().x - position.x)
 		var distance_y =  abs(GameManager.get_player_position().y - position.y)
+		$Node2D.look_at(GameManager.get_player_position())
 		#print(distance_x)
 		if distance_x <= shooting_range_x and distance_y <= shooting_range_y:
 			$FireballSound.play()
@@ -132,6 +134,8 @@ func shoot():
 			get_parent().add_child(fireball)
 			fireball.position = $Node2D/Position2D.global_position
 			fireball.velocity = GameManager.get_player_position() - fireball.position
+
+
 
 func take_damage(damage):
 	is_patrolling = false

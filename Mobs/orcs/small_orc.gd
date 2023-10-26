@@ -107,7 +107,10 @@ func pursue_player():
 	var player_position = GameManager.get_player_position()
 	var direction_to_player = (player_position - position).normalized()
 	var velocity = direction_to_player * speed
-	move_and_slide(velocity)
+	if not can_attack:
+		move_and_slide(-(direction_to_player)*(speed/4))
+	else:
+		move_and_slide(velocity)
 ######################################################
 
 ###########################Damage##############################
@@ -117,7 +120,6 @@ func deal_damage():
 		$Node2D/Position2D/Testattack.visible = true
 		$SliceTimer.start()
 		can_attack = false
-		print("dealing damage orc")
 		$AttackCooldown.start()
 		
 		return 1 #amount of damage
