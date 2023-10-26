@@ -3,6 +3,8 @@ extends Node2D
 func _ready():
 	#$GameMusic.playing = true
 #	print($GameMusic)
+	GameManager.game_won = false
+	print(GameManager.game_won)
 	pass
 	
 func _process(_delta):

@@ -10,8 +10,8 @@ func _ready():
 func _process(_delta):
 	if Input.is_action_just_pressed("interact") and can_switch: 
 		if switched: 
-			pass
 			#unswitch()
+			pass
 		else:
 			switch()
 
@@ -19,6 +19,7 @@ func switch():
 	switched = true
 	$LeverArea/NotSwitched.hide()
 	$LeverArea/Switched.show()
+	get_parent().next_message()
 
 func unswitch():
 	switched = false

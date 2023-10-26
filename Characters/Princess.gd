@@ -4,8 +4,9 @@ var speed = 200
 
 var chat_messages = [
 	"Adventurer, please find a way to get me out of here!",
-	"Yay, I'm free!! Were's my hero?!",
-	""
+	"I'm scared.. Hurry!",
+	"Only one challenge remaining adventurer, please be careful..!",
+	"Yay, I'm free!! Were's my hero?!"
 ]
 var current_message = 0
 var chatbox
@@ -30,6 +31,7 @@ func _process(delta):
 
 
 
-func interact():
+func next_message():
+	current_message = current_message + 1
 	chatbox.show_message(chat_messages[current_message])
-	current_message = (current_message + 1) % chat_messages.size()
+	#current_message = (current_message + 1) % chat_messages.size()

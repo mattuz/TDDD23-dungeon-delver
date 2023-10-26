@@ -17,5 +17,6 @@ func _ready():
 
 
 func _on_Area2D_body_entered(body):
-	GameManager.game_won = true
+	if body.has_method("player"):
+		GameManager.game_won = true
 	pass

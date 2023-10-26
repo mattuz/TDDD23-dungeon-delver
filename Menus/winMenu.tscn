@@ -49,3 +49,5 @@ margin_top = 161.0
 margin_right = 308.0
 margin_bottom = 184.0
 text = "Exit Game"
+
+[connection signal="pressed" from="Panel/VBoxContainer/ExitGameButton" to="." method="_on_ExitGameButton_pressed"]
