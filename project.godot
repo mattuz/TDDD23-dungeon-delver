@@ -10,7 +10,7 @@ config_version=4
 
 [application]
 
-config/name="TDDD23"
+config/name="DungeonDelver"
 run/main_scene="res://Main/Menu.tscn"
 config/icon="res://icon.png"
 

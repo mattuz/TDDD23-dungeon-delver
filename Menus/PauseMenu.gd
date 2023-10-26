@@ -28,4 +28,6 @@ func _on_MainMenuButton_pressed():
 
 
 func _on_ExitGameButton_pressed():
-	get_tree().quit()
+	$Control.hide()
+	$confirmExitMenu.show()
+	#get_tree().quit()

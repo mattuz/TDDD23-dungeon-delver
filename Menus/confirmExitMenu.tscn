@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Chatboxes/my_theme.theme" type="Theme" id=1]
+[ext_resource path="res://Menus/confirmExitMenu.gd" type="Script" id=2]
+
+[node name="confirmExitMenu" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Panel" type="Panel" parent="."]
+self_modulate = Color( 1, 1, 1, 0.376471 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -264.0
+margin_top = -151.0
+margin_right = 264.0
+margin_bottom = 151.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -164.0
+margin_top = -113.5
+margin_right = 164.0
+margin_bottom = 113.5
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+margin_right = 328.0
+margin_bottom = 177.0
+text = "Are you sure you want to exit?
+Your progress will not be saved.
+
+
+
+
+
+
+"
+align = 1
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+margin_left = 109.0
+margin_top = 181.0
+margin_right = 218.0
+margin_bottom = 204.0
+size_flags_horizontal = 4
+
+[node name="yes" type="Button" parent="Panel/VBoxContainer/HBoxContainer"]
+margin_right = 57.0
+margin_bottom = 23.0
+text = " Yes "
+
+[node name="no" type="Button" parent="Panel/VBoxContainer/HBoxContainer"]
+margin_left = 61.0
+margin_right = 109.0
+margin_bottom = 23.0
+text = " No "
+
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/yes" to="." method="_on_yes_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/no" to="." method="_on_no_pressed"]

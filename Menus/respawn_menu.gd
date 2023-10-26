@@ -18,4 +18,5 @@ func _on_RespawnButton_pressed():
 	get_tree().paused = false
 
 func _on_ExitGameButton_pressed():
-	get_tree().quit()
+	$Control.hide()
+	$confirmExitMenu.show()
