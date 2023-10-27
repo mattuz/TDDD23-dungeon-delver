@@ -11,11 +11,13 @@ var afk = true
 var spawn1 = false
 var spawn2 = false
 var spawn3 = false
+var adds = []
 
 
 const fireballPath = preload('res://items/Fireball.tscn')
 const shamanPath = preload('res://Mobs/orcs/orc_shaman.tscn')
 const chortPath = preload('res://Mobs/demons/chort.tscn')
+const potPath = preload('res://Objects/hp_pot.tscn')
 
 var can_charge = true
 var charging = false
@@ -64,6 +66,18 @@ func reset():
 	spawn3 = false
 	$ChargeCooldown.wait_time = 5
 	$FireballCooldown.wait_time = 2
+	for i in range(4):
+		var pot = potPath.instance()
+		get_parent().add_child(pot)
+		if i == 0:
+			pot.position = Vector2(2520, -1448)
+		if i == 1:
+			pot.position = Vector2(2520, -1704)
+		if i == 2:
+			pot.position = Vector2(3048, -1704)
+		if i == 3:
+			pot.position = Vector2(3048, -1448)
+	
 	
 
 func _physics_process(delta):
@@ -335,15 +349,17 @@ func boss():
 
 func _on_DoorArea_body_entered(body):
 	if body.has_method("open_door"):
-		#print("door door")
 		pass
-	pass # Replace with function body.
+	if body.has_method("enemy"):
+		adds.append(body)
+
 
 
 func _on_DoorArea_body_exited(body):
 	if body.has_method("open_door"):
 		body.open_door()
-	pass # Replace with function body.
+	if body.has_method("enemy"):
+		adds.erase(body)
 
 
 func _on_PowerUpTimer_timeout():

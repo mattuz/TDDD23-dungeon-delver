@@ -850,7 +850,7 @@ points = PoolVector2Array( 16, 8, 0, 8, 0, 0, 16, 0 )
 script = ExtResource( 2 )
 
 [node name="PlayerElf" parent="." instance=ExtResource( 4 )]
-position = Vector2( 0, 131 )
+position = Vector2( 2479, -744 )
 z_index = 1
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -910,9 +910,6 @@ __meta__ = {
 [node name="bossDoor" parent="." instance=ExtResource( 28 )]
 position = Vector2( 2784, -1744 )
 
-[node name="boss" parent="." instance=ExtResource( 27 )]
-position = Vector2( 2848, -1614 )
-
 [node name="hp_pot" parent="." instance=ExtResource( 30 )]
 position = Vector2( 2520, -1448 )
 
@@ -924,6 +921,9 @@ position = Vector2( 3048, -1704 )
 
 [node name="hp_pot4" parent="." instance=ExtResource( 30 )]
 position = Vector2( 2520, -1704 )
+
+[node name="boss" parent="." instance=ExtResource( 27 )]
+position = Vector2( 2848, -1614 )
 
 [node name="Room1" parent="." instance=ExtResource( 7 )]
 
