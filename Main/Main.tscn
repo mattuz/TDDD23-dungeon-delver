@@ -850,7 +850,7 @@ points = PoolVector2Array( 16, 8, 0, 8, 0, 0, 16, 0 )
 script = ExtResource( 2 )
 
 [node name="PlayerElf" parent="." instance=ExtResource( 4 )]
-position = Vector2( 2479, -744 )
+position = Vector2( 0, 131 )
 z_index = 1
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -936,7 +936,7 @@ position = Vector2( 408, -1112 )
 position = Vector2( 1118, -984 )
 
 [node name="checkpoint4" parent="Room1" instance=ExtResource( 22 )]
-position = Vector2( 2440, -740 )
+position = Vector2( 2441, -736 )
 
 [node name="checkpoint5" parent="Room1" instance=ExtResource( 22 )]
 position = Vector2( 3344, -736 )
