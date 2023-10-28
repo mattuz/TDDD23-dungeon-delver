@@ -10,6 +10,7 @@ var immune = false
 var cooldown = false
 var can_dash = true
 var arrow_damage = 1
+var dashing = false
 
 func _ready():
 	display_hp(health)
@@ -26,7 +27,6 @@ func _process(delta):
 		var dir = get_global_mouse_position()
 		
 		pass
-	#dash(1,0)
 	$Node2D.look_at(get_global_mouse_position())
 	
 	
@@ -38,16 +38,40 @@ func _physics_process(delta):
 		Input.get_action_strength("down") - Input.get_action_strength("up"))
 	if input_direction.x != 0:
 		if get_global_mouse_position().x < self.position.x:
-			_animation_player.play("walk_left")
+			if dashing:
+				$dashSprite.flip_h = 1
+				$dashSprite.show()
+				$Sprite.hide()
+			else:
+				_animation_player.play("walk_left")
 		else:
-			_animation_player.play("walk_right")
+			if dashing:
+				#add speed check
+				$dashSprite.flip_h = 0
+				$dashSprite.show()
+				$Sprite.hide()
+			else:
+				_animation_player.play("walk_right")
 	elif input_direction.y != 0:
 		if get_global_mouse_position().x < self.position.x:
-			_animation_player.play("walk_left")
+			if dashing:
+				$dashSprite.flip_h = 1
+				$dashSprite.show()
+				$Sprite.hide()
+				#_animation_player.play("dash")
+			else:
+				_animation_player.play("walk_left")
 		else:
-			_animation_player.play("walk_right")
+			if dashing:
+				$dashSprite.flip_h = 0
+				$dashSprite.show()
+				$Sprite.hide()
+			else:
+				_animation_player.play("walk_right")
 			
 	else:
+		$Sprite.show()
+		$dashSprite.hide()
 		_animation_player.play("IDLE")
 		if get_global_mouse_position().x < self.position.x:
 			$Sprite.flip_h = 1
@@ -146,6 +170,7 @@ func display_hp(hp):
 func dash():
 	if can_dash:
 		$DashCooldown.start()
+		dashing = true
 		move_speed = move_speed * 3
 		can_dash = false
 		$DashTimer.start()
@@ -178,7 +203,10 @@ func _on_ResetArea_body_exited(body):
 
 func _on_DashTimer_timeout():
 	move_speed = 120
-	pass # Replace with function body.
+	dashing = false
+	$dashSprite.hide()
+	$Sprite.show()
+
 
 func _on_DashCooldown_timeout():
 	can_dash = true
