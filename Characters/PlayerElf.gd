@@ -30,7 +30,6 @@ func _process(delta):
 		pass
 	$Node2D.look_at(get_global_mouse_position())
 	
-	
 
 func _physics_process(delta):
 	GameManager.set_player_position(position)
