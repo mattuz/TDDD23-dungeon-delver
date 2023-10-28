@@ -13,6 +13,10 @@ var spawn2 = false
 var spawn3 = false
 var adds = []
 var dead = false
+var p1 = false
+var p2 = false
+var p3 = false
+var last_phase = false
 
 
 const fireballPath = preload('res://items/Fireball.tscn')
@@ -57,6 +61,7 @@ func _ready():
 	
 func reset():
 	position = starting_pos
+	last_phase = false
 	is_patrolling = true
 	moving = false
 	chase_player = false
@@ -84,12 +89,10 @@ func reset():
 			else:
 				adds.erase(add)
 				add.queue_free()
-				
 	
 	
 
 func _physics_process(delta):
-
 	if not afk:
 		if is_patrolling:	
 			if moving == true:
@@ -121,31 +124,61 @@ func _physics_process(delta):
 				moving = true
 				pursue_player()
 			if health <= 75:
-				$ChargeCooldown.wait_time = 3
-				$FireballCooldown.wait_time = 1.5
 				if not spawn1:
-					$hp75.play()
-					spawn_chorts(1)
-					spawn_shamans(1)
-					spawn1 = true
-					pass
+					if last_phase:
+						spawn_chorts(1)
+						spawn_shamans(3)
+						spawn1=true
+					else:
+						$hp75.play()
+						spawn_chorts(1)
+						spawn_shamans(1)
+						spawn1 = true
+				if not p1:
+					$ChargeCooldown.wait_time = 3
+					$FireballCooldown.wait_time = 1.5
+					p1 = true
+					spawn1 = false
+					health = 100
+					$HPbar/Control/ProgressBar.value = health
+					
+
 			if health <= 50:
-				$FireballCooldown.wait_time = 1
+				if last_phase:
+					$FireballCooldown.wait_time = .15
 				if not spawn2:
+					if last_phase:
+						spawn_chorts(2)
 					$hp50.play()
 					spawn2 = true
-					#spawn_chorts(1)
 					spawn_shamans(4)
-					pass
+				if not p2:
+					$ChargeCooldown.wait_time = 3
+					$FireballCooldown.wait_time = 1
+					p2 = true
+					spawn2 = false
+					spawn1 = false
+					health = 100
+					$HPbar/Control/ProgressBar.value = health
 			if health <= 25:
-				$ChargeCooldown.wait_time = 1.5
-				$FireballCooldown.wait_time = .3
+				if last_phase:
+					$ChargeCooldown.wait_time = .5
 				if not spawn3:
 					$hp25.play()
 					spawn3 = true
 					spawn_chorts(2)
 					spawn_shamans(4)
 					pass
+				if not p3:
+					$ChargeCooldown.wait_time = 1
+					$FireballCooldown.wait_time = .3
+					p3 = true
+					last_phase = true
+					spawn1 = false
+					spawn2 = false
+					spawn3 = false
+					health = 100
+					$HPbar/Control/ProgressBar.value = health
 				
 
 
@@ -165,7 +198,6 @@ func patrol():
 	
 	if not patrol_wait:
 		moving = true
-	#	move_and_slide(next_patrol_direction * speed)
 		move_and_slide(velocity)
 
 func get_random_position_in_patrol_area():
@@ -282,7 +314,6 @@ func spawn_chorts(amount):
 	for i in range(amount):
 		var chort = chortPath.instance()
 		get_parent().add_child(chort)
-		adds.append(chort)
 		if i == 0:
 			chort.position = Vector2(global_position.x +20, global_position.y+40)
 		elif i == 1:
@@ -298,7 +329,6 @@ func spawn_shamans(amount):
 	for i in range(amount):
 		var shaman = shamanPath.instance()
 		get_parent().add_child(shaman)
-		adds.append(shaman)
 		if i == 0:
 			shaman.position = Vector2(global_position.x +40, global_position.y+40)
 		elif i == 1:
@@ -362,12 +392,16 @@ func boss():
 func _on_DoorArea_body_entered(body):
 	if body.has_method("open_door"):
 		pass
+	if body.has_method("enemy"):
+		adds.append(body)
 
 
 
 func _on_DoorArea_body_exited(body):
 	if body.has_method("open_door"):
 		body.open_door()
+	if body.has_method("enemy"):
+		adds.erase(body)
 
 
 func _on_PowerUpTimer_timeout():

@@ -30,6 +30,7 @@ func _process(delta):
 		$CanvasLayer/respawn_menu.show()
 	if GameManager.game_won:
 		$GameWin.play()
+		$CanvasLayer/winMenu/Panel/VBoxContainer/Label.text = str("Congratulations! \n \n You managed to beat the game in \n ", time, " seconds! \n \n \n \n")
 		var current_value = get_tree().paused
 		get_tree().paused = !current_value
 		$CanvasLayer/winMenu.show()

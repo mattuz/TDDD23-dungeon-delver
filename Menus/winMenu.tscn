@@ -45,10 +45,17 @@ You managed to save the Princess!
 align = 1
 valign = 1
 
-[node name="ExitGameButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="MainMenuButton" type="Button" parent="Panel/VBoxContainer"]
 margin_top = 161.0
 margin_right = 308.0
 margin_bottom = 184.0
+text = "Return to Main Menu"
+
+[node name="ExitGameButton" type="Button" parent="Panel/VBoxContainer"]
+margin_top = 188.0
+margin_right = 308.0
+margin_bottom = 211.0
 text = "Exit Game"
 
+[connection signal="pressed" from="Panel/VBoxContainer/MainMenuButton" to="." method="_on_MainMenuButton_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/ExitGameButton" to="." method="_on_ExitGameButton_pressed"]

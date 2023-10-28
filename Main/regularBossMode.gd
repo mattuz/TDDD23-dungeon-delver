@@ -7,8 +7,9 @@ var moved = false
 func _ready():
 	#$GameMusic.playing = true
 #	print($GameMusic)
+	$PlayerElf.arrow_damage = 2
+	$PlayerElf/Cooldown.wait_time = .5
 	GameManager.game_won = false
-	print(GameManager.game_won)
 	pass
 	
 func _process(delta):
@@ -27,8 +28,11 @@ func _process(delta):
 	if GameManager.get_player_dead():
 		var current_value = get_tree().paused
 		get_tree().paused = !current_value
-		$CanvasLayer/respawn_menu.show()
-	if GameManager.game_won:
+		$CanvasLayer/retryMenu.show()
+		time = 0.0
+		moved=false
+	if $boss.dead:
+		$CanvasLayer/winMenu/Panel/VBoxContainer/Label.text = str("Congratulations! \n \n You managed to defeat the boss in \n ", time, " seconds! \n \n \n \n")
 		$GameWin.play()
 		var current_value = get_tree().paused
 		get_tree().paused = !current_value

@@ -13,18 +13,8 @@ func _ready():
 	pass
 
 
-func _on_ContinueButton_pressed():
-	hide()
-	get_tree().paused = false
-	
-
-
-func _on_OptionsButton_pressed():
-	pass # Replace with function body.
-
-
 func _on_MainMenuButton_pressed():
-	pass # Replace with function body.
+	get_tree().change_scene("res://Main/Menu.tscn")
 
 
 func _on_ExitGameButton_pressed():

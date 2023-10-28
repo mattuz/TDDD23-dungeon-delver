@@ -103,6 +103,6 @@ visible = false
 
 [connection signal="pressed" from="Control/Panel/VBoxContainer/SpeedrunMode" to="." method="_on_SpeedrunMode_pressed"]
 [connection signal="pressed" from="Control/Panel/VBoxContainer/BossMode" to="." method="_on_BossMode_pressed"]
-[connection signal="pressed" from="Control/Panel/VBoxContainer/BossMode2" to="." method="_on_BossMode_pressed"]
+[connection signal="pressed" from="Control/Panel/VBoxContainer/BossMode2" to="." method="_on_BossMode2_pressed"]
 [connection signal="pressed" from="Control/Panel/VBoxContainer/ExitGameButton" to="." method="_on_ExitGameButton_pressed"]
 [connection signal="pressed" from="Control/Panel/VBoxContainer/MainMenuButton" to="." method="_on_MainMenuButton_pressed"]

@@ -38,7 +38,6 @@ func respawn(player):
 	pass
 
 func add_to_combat(monster):
-	print("Added ", monster, " to combat")
 	in_combat.append(monster)
 	#How to add into combat below (used for larger mobs/bosses):
 	#	if combat == false:
@@ -46,5 +45,4 @@ func add_to_combat(monster):
 	#	GameManager.add_to_combat(self)
 	
 func remove_from_combat(monster):
-	print("Removed ", monster, " from combat")
 	in_combat.erase(monster)
