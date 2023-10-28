@@ -5,6 +5,9 @@ var time_str = ""
 var moved = false
 
 func _ready():
+	$CanvasLayer/PauseMenu.hide()
+	$CanvasLayer/respawn_menu.hide()
+	$CanvasLayer/winMenu.hide()
 	#$GameMusic.playing = true
 #	print($GameMusic)
 	GameManager.game_won = false

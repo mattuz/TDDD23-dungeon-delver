@@ -58,14 +58,21 @@ margin_right = 232.0
 margin_bottom = 104.0
 text = "Respawn from Checkpoint"
 
-[node name="ExitGameButton" type="Button" parent="Control/Panel/VBoxContainer"]
+[node name="MainMenuButton" type="Button" parent="Control/Panel/VBoxContainer"]
 margin_top = 108.0
 margin_right = 232.0
 margin_bottom = 131.0
+text = "Return to Main Menu"
+
+[node name="ExitGameButton" type="Button" parent="Control/Panel/VBoxContainer"]
+margin_top = 135.0
+margin_right = 232.0
+margin_bottom = 158.0
 text = "Exit Game"
 
 [node name="confirmExitMenu" parent="." instance=ExtResource( 3 )]
 visible = false
 
 [connection signal="pressed" from="Control/Panel/VBoxContainer/RespawnButton" to="." method="_on_RespawnButton_pressed"]
+[connection signal="pressed" from="Control/Panel/VBoxContainer/MainMenuButton" to="." method="_on_MainMenuButton_pressed"]
 [connection signal="pressed" from="Control/Panel/VBoxContainer/ExitGameButton" to="." method="_on_ExitGameButton_pressed"]

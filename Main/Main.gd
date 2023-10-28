@@ -1,6 +1,9 @@
 extends Node2D
 
 func _ready():
+	$CanvasLayer/PauseMenu.hide()
+	$CanvasLayer/respawn_menu.hide()
+	$CanvasLayer/winMenu.hide()
 	GameManager.game_won = false
 	print(GameManager.game_won)
 	pass

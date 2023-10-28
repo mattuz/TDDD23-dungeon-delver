@@ -27,11 +27,11 @@ func _on_MainMenuButton_pressed():
 	$confirmExitMenu.menu = true
 	$Control.hide()
 	$confirmExitMenu.show()
-	pass # Replace with function body.
+
 
 
 func _on_ExitGameButton_pressed():
 	$confirmExitMenu.exit = true
 	$Control.hide()
 	$confirmExitMenu.show()
-	#get_tree().quit()
+

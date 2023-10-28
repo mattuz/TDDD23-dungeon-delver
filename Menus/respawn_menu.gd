@@ -16,6 +16,16 @@ func _on_RespawnButton_pressed():
 	hide()
 	get_tree().paused = false
 
-func _on_ExitGameButton_pressed():
+func _on_MainMenuButton_pressed():
+	$confirmExitMenu.menu = true
+	$confirmExitMenu.respawn = true
 	$Control.hide()
 	$confirmExitMenu.show()
+
+func _on_ExitGameButton_pressed():
+	$confirmExitMenu.exit = true
+	$Control.hide()
+	$confirmExitMenu.show()
+
+
+

@@ -70,6 +70,9 @@ func reset():
 	spawn1 = false
 	spawn2 = false
 	spawn3 = false
+	p1 = false
+	p2 = false
+	p3 = false
 	$ChargeCooldown.wait_time = 5
 	$FireballCooldown.wait_time = 2
 	for i in range(4):
@@ -236,7 +239,10 @@ func shoot():
 			var fireball = fireballPath.instance()
 			get_parent().add_child(fireball)
 			fireball.position = $Node2D/Position2D.global_position
-			fireball.velocity = GameManager.get_player_position() - fireball.position
+			var pos = GameManager.get_player_position()
+			pos = Vector2(pos.x,pos.y+4)
+			fireball.velocity = pos - fireball.position
+			
 
 func deal_damage():
 	if can_attack:

@@ -18,6 +18,7 @@ func _on_RetryChallengeButton_pressed():
 
 func _on_MainMenuButton_pressed():
 	$confirmExitMenu.menu = true
+	$confirmExitMenu.retry = true
 	$Control.hide()
 	$confirmExitMenu.show()
 	pass # Replace with function body.

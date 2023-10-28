@@ -204,7 +204,9 @@ func shoot():
 			var fireball = fireballPath.instance()
 			get_parent().add_child(fireball)
 			fireball.position = $Node2D/Position2D.global_position
-			fireball.velocity = GameManager.get_player_position() - fireball.position
+			var pos = GameManager.get_player_position()
+			pos = Vector2(pos.x,pos.y+4)
+			fireball.velocity = pos - fireball.position
 
 func deal_damage():
 	if can_attack:

@@ -6,6 +6,8 @@ extends Control
 # var b = "text"
 var exit = false
 var menu = false
+var retry = false
+var respawn = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -24,6 +26,14 @@ func _on_yes_pressed():
 		get_tree().quit()
 	elif menu:
 		menu = false
+		if retry:
+			retry = false
+			GameManager.set_player_dead(false)
+		if respawn:
+			respawn = false
+			GameManager.set_player_dead(false)
+			
+		print(get_parent())
 		get_tree().change_scene("res://Main/Menu.tscn")
 
 
