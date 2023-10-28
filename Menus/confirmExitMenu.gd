@@ -4,6 +4,8 @@ extends Control
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+var exit = false
+var menu = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -17,9 +19,16 @@ func _ready():
 
 
 func _on_yes_pressed():
-	get_tree().quit()
+	if exit:
+		exit = false
+		get_tree().quit()
+	elif menu:
+		menu = false
+		get_tree().change_scene("res://Main/Menu.tscn")
 
 
 func _on_no_pressed():
+	exit = false
+	menu = false
 	hide()
 	get_parent().get_node("Control").show()

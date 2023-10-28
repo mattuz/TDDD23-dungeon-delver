@@ -66,16 +66,15 @@ margin_bottom = 131.0
 text = "Options"
 
 [node name="MainMenuButton" type="Button" parent="Control/Panel/VBoxContainer"]
-visible = false
 margin_top = 108.0
 margin_right = 192.0
 margin_bottom = 131.0
 text = "Return to Main Menu"
 
 [node name="ExitGameButton" type="Button" parent="Control/Panel/VBoxContainer"]
-margin_top = 108.0
+margin_top = 135.0
 margin_right = 192.0
-margin_bottom = 131.0
+margin_bottom = 158.0
 text = "Exit Game"
 
 [node name="confirmExitMenu" parent="." instance=ExtResource( 3 )]

@@ -6,6 +6,7 @@ var player_dead = false
 var in_combat = []
 var player 
 var game_won = false
+var player_starting_position = Vector2()
 
 
 func set_player(player_c):
@@ -13,6 +14,9 @@ func set_player(player_c):
 
 func set_player_position(position):
 	player_position = position
+
+func set_player_starting_position(position):
+	player_starting_position = position
 
 func get_player_position():
 	return player_position

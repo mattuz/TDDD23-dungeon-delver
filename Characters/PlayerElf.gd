@@ -15,6 +15,7 @@ var dashing = false
 func _ready():
 	display_hp(health)
 	GameManager.set_player(self)
+	GameManager.set_player_starting_position(position)
 
 func _process(delta):
 	if Input.get_action_strength("eq_bow") == 1:
